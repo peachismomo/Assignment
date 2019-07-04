@@ -13,3 +13,4 @@ public class MainActivity extends AppCompatActivity {
 }
 //sdallah
 //meme
+//jordan has double standards
