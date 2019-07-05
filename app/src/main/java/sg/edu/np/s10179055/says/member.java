@@ -35,7 +35,7 @@ public class member extends AppCompatActivity {
         mPagerController = new PagerController(getSupportFragmentManager(), mTabLayout.getTabCount());
         mPager.setAdapter(mPagerController);
 
-        //Open tab via click
+        //Open tab via click.
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
