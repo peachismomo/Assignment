@@ -23,7 +23,11 @@ public class foodPlacesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_food_places, container, false);
+        View RootView = inflater.inflate(R.layout.fragment_profile, container, false);
+        /*
+        Code your spaghetti here
+        */
+        return RootView;
     }
 
 }

@@ -12,5 +12,5 @@
         android:text="Food Page"
         android:gravity="center"
         android:textSize="18sp"/>
-
+    //Pls don use FrameLayout, help yourself.
 </FrameLayout>

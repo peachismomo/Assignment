@@ -14,16 +14,17 @@ import android.view.ViewGroup;
 public class profileFragment extends Fragment {
 
 
-    public profileFragment() {
-        // Required empty public constructor
-    }
-
+    public profileFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View RootView = inflater.inflate(R.layout.fragment_profile, container, false);
+        /*
+        Code your spaghetti here
+        */
+        return RootView;
     }
 
 }
