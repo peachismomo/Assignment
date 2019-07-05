@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
-public class member extends AppCompatActivity {
+public class student extends AppCompatActivity {
 
     Toolbar mToolbar;
     TabLayout mTabLayout;
@@ -20,7 +20,7 @@ public class member extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_student);
 
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
