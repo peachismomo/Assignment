@@ -22,5 +22,4 @@ public class MainActivity extends AppCompatActivity {
         Intent myIntent = new Intent(getBaseContext(), guest.class);
         startActivity(myIntent);
     }
-
 }

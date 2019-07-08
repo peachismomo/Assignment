@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
-        android:text="@string/prompt_password"
+        android:text="prompt_password"
         android:textStyle="bold" />
 
     <EditText

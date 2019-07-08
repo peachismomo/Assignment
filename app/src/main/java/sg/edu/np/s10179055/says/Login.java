@@ -1,9 +1,12 @@
 package sg.edu.np.s10179055.says;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,6 +14,7 @@ import java.util.regex.Pattern;
 
 public class Login extends AppCompatActivity {
     Dbhandler db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,10 +23,10 @@ public class Login extends AppCompatActivity {
     }
 
     public void onLoginClick(View v) {
-        TextView tvuserC = findViewById(R.id.User_Edit);
-        TextView tvPassC = findViewById(R.id.pass_edit);
+        EditText tvUserC = findViewById(R.id.User_Edit);
+        EditText tvPassC = findViewById(R.id.pass_edit);
 
-        String userNameInput = tvuserC.getText().toString();
+        String userNameInput = tvUserC.getText().toString();
         String passInput = tvPassC.getText().toString();
 
         Pattern patternUser = Pattern.compile("^[A-Za-z]{6,12}$");
@@ -32,10 +36,16 @@ public class Login extends AppCompatActivity {
         Matcher matcherPass = patternPass.matcher(passInput);
 
         if (matcherPass.matches() || matcherUser.matches()) {
-            db.findAccount(userNameInput,passInput);
+            if(db.findAccount(userNameInput,passInput)){
+                Intent mainPage = new Intent(getBaseContext(), student.class);
+                startActivity(mainPage);
+            }
+            else {
+                Toast.makeText(getApplicationContext(), "Invalid username or password", Toast.LENGTH_SHORT);
+                tvPassC.getText().clear();
+                tvUserC.getText().clear();
+            }
         }
-
-
     }
 
 }
