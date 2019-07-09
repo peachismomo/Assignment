@@ -7,7 +7,7 @@ public class loginDetails {
     String username;
     String password;
 
-    public void loginDetails(String username, String password) {
+    public loginDetails(String username, String password) {
         this.username = username;
         this.password = password;
     }

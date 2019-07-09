@@ -29,13 +29,10 @@ public class Login extends AppCompatActivity {
         String userNameInput = tvUserC.getText().toString();
         String passInput = tvPassC.getText().toString();
 
-        Pattern patternUser = Pattern.compile("^[A-Za-z]{6,12}$");
-        Pattern patternPass = Pattern.compile("^+[$&+,:;=?@#|]+[A-Z]+[0-9]$");
+        loginDetails lgd= new loginDetails(userNameInput,passInput);
 
-        Matcher matcherUser = patternUser.matcher(userNameInput);
-        Matcher matcherPass = patternPass.matcher(passInput);
 
-        if (matcherPass.matches() || matcherUser.matches()) {
+        if (lgd.regexPassword() && lgd.regexUsername()) {
             if(db.findAccount(userNameInput,passInput)){
                 Intent mainPage = new Intent(getBaseContext(), student.class);
                 startActivity(mainPage);
