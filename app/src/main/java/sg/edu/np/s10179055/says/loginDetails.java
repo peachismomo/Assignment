@@ -12,6 +12,18 @@ public class loginDetails {
         this.password = password;
     }
 
+    public void setUsername(String Username){
+        username = Username;
+    }
+
+    public String getUsername(){
+        return username;
+    }
+
+    public void setPassword(String Password){
+        password = Password;
+    }
+
     public boolean regexUsername() {
         Pattern patternUser = Pattern.compile("^[A-Za-z]{6,12}$");
         Matcher matcherUser = patternUser.matcher(username);
