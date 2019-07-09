@@ -51,7 +51,7 @@ public class reportingFragment extends Fragment {
         intent.putExtra(Intent.EXTRA_SUBJECT, subj);
         intent.putExtra(Intent.EXTRA_TEXT, message);
 
-        //Only open email clients.
+        //Only open EmailET clients.
         intent.setType("message/rfc822");
 
         startActivity(Intent.createChooser(intent, "Choose an Email Client."));

@@ -1,6 +1,7 @@
 package sg.edu.np.s10179055.says;
 
-import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Account {
     private String username;
@@ -12,6 +13,9 @@ public class Account {
     private int LoginCount;
     private String Name;
     private String NRIC;
+
+    public Account() {
+    }
 
     public String getUsername() {
         return username;
@@ -83,5 +87,21 @@ public class Account {
 
     public void setNRIC(String NRIC) {
         this.NRIC = NRIC;
+    }
+
+    public boolean regexUsername() {
+        Pattern patternUser = Pattern.compile("^[A-Za-z]{6,12}$");
+        Matcher matcherUser = patternUser.matcher(username);
+        return matcherUser.matches();
+    }
+
+    public boolean regexPassword() {
+        Pattern patternPass = Pattern.compile("^+[$&+,:;=?@#|]+[A-Z]+[0-9]$");
+        Matcher matcherPassword = patternPass.matcher(password);
+        return matcherPassword.matches();
+    }
+
+    public boolean regex() {
+        return regexUsername() && regexPassword();
     }
 }

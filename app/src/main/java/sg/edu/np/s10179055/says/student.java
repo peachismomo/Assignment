@@ -23,14 +23,14 @@ public class student extends AppCompatActivity {
         setContentView(R.layout.activity_student);
 
         mToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("No Problem");
-
         mTabLayout = findViewById(R.id.tabLayout);
         profileTab = findViewById(R.id.profileTab);
         foodPlacesTab = findViewById(R.id.foodPlacesTab);
         reportingTab = findViewById(R.id.reportTab);
         mPager = findViewById(R.id.viewPager);
+
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("No Problem");
 
         mPagerController = new PagerController(getSupportFragmentManager(), mTabLayout.getTabCount());
         mPager.setAdapter(mPagerController);

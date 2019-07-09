@@ -13,13 +13,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void onLogin(View v){
+    public void onLogin(View v) {
         Intent myIntent = new Intent(getBaseContext(), student.class);
         startActivity(myIntent);
     }
 
-    public void onGuest(View v){
-        Intent myIntent = new Intent(getBaseContext(), guest.class);
+    public void onGuest(View v) {
+        Intent myIntent = new Intent(getBaseContext(), register.class);
         startActivity(myIntent);
     }
 }

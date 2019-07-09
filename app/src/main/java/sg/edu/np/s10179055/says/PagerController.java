@@ -7,14 +7,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 public class PagerController extends FragmentPagerAdapter {
     int tabCounts;
 
-    public PagerController(FragmentManager fm, int tabCounts){
+    public PagerController(FragmentManager fm, int tabCounts) {
         super(fm);
         this.tabCounts = tabCounts;
     }
 
     @Override
     public Fragment getItem(int i) {
-        switch(i){
+        switch (i) {
             case 0:
                 return new profileFragment();
             case 1:
