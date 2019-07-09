@@ -16,7 +16,8 @@ public class reportingFragment extends Fragment {
     private EditText subject;
     private EditText msg;
 
-    public reportingFragment() { }
+    public reportingFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,7 +30,7 @@ public class reportingFragment extends Fragment {
         msg = RootView.findViewById(R.id.messageTxt);
 
         Button buttonSend = RootView.findViewById(R.id.sendBtn);
-        buttonSend.setOnClickListener(new View.OnClickListener(){
+        buttonSend.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -41,7 +42,7 @@ public class reportingFragment extends Fragment {
     }
 
     //Send report via E-mail.
-    private void sendMail(){
+    private void sendMail() {
         String subj = subject.getText().toString();
         String message = msg.getText().toString();
         String[] recipient = address.split(",");

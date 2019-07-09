@@ -24,10 +24,10 @@
             android:textSize="20dp" />
 
         <EditText
+            android:id="@+id/nameTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:id="@+id/nameTxt"/>
+            android:textSize="20dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,10 +36,10 @@
             android:textSize="20dp" />
 
         <EditText
+            android:id="@+id/studentIdTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:id="@+id/studentIdTxt"/>
+            android:textSize="20dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -48,10 +48,10 @@
             android:textSize="20dp" />
 
         <EditText
+            android:id="@+id/emailTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:id="@+id/emailTxt"/>
+            android:textSize="20dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -60,10 +60,10 @@
             android:textSize="20dp" />
 
         <EditText
+            android:id="@+id/dateOfBirthTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:id="@+id/dateOfBirthTxt" />
+            android:textSize="20dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -72,10 +72,10 @@
             android:textSize="20dp" />
 
         <EditText
+            android:id="@+id/nric"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:id="@+id/nric" />
+            android:textSize="20dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -84,10 +84,10 @@
             android:textSize="20dp" />
 
         <EditText
+            android:id="@+id/courseTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:id="@+id/courseTxt"/>
+            android:textSize="20dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -96,10 +96,10 @@
             android:textSize="20dp" />
 
         <EditText
+            android:id="@+id/usernameTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:id="@+id/usernameTxt"/>
+            android:textSize="20dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -108,10 +108,10 @@
             android:textSize="20dp" />
 
         <EditText
+            android:id="@+id/passwordTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:id="@+id/passwordTxt"/>
+            android:textSize="20dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -123,7 +123,7 @@
             android:id="@+id/reenterPasswordTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"/>
+            android:textSize="20dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -134,14 +134,14 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cancel"
-                android:onClick="onCancel"/>
+                android:onClick="onCancel"
+                android:text="Cancel" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Confirm"
-                android:onClick="onConfirm"/>
+                android:onClick="onConfirm"
+                android:text="Confirm" />
         </LinearLayout>
     </LinearLayout>
 

@@ -12,7 +12,8 @@ import android.view.ViewGroup;
  */
 public class profileFragment extends Fragment {
 
-    public profileFragment() { }
+    public profileFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

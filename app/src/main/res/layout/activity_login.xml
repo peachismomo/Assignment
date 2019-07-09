@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".Login">
 
     <TextView
         android:layout_width="match_parent"
@@ -28,10 +26,11 @@
         android:id="@+id/User_Edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="18dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:layout_gravity="center"/>
+        android:inputType="textPersonName" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -44,10 +43,10 @@
         android:id="@+id/pass_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="13dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:layout_gravity="center"/>
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/btnSignin"

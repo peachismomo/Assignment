@@ -14,7 +14,21 @@ public class Account {
     private String Name;
     private String NRIC;
 
-    public Account() {
+    public Account(String username, String password, String course, String email, String studentNo, String DOB, int loginCount, String name, String NRIC) {
+        this.username = username;
+        this.password = password;
+        Course = course;
+        Email = email;
+        StudentNo = studentNo;
+        this.DOB = DOB;
+        LoginCount = loginCount;
+        Name = name;
+        this.NRIC = NRIC;
+    }
+
+    public Account(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
     public String getUsername() {
@@ -37,56 +51,28 @@ public class Account {
         return Course;
     }
 
-    public void setCourse(String course) {
-        Course = course;
-    }
-
     public String getEmail() {
         return Email;
-    }
-
-    public void setEmail(String email) {
-        Email = email;
     }
 
     public String getStudentNo() {
         return StudentNo;
     }
 
-    public void setStudentNo(String studentNo) {
-        StudentNo = studentNo;
-    }
-
     public String getDOB() {
         return DOB;
-    }
-
-    public void setDOB(String DOB) {
-        this.DOB = DOB;
     }
 
     public int getLoginCount() {
         return LoginCount;
     }
 
-    public void setLoginCount(int loginCount) {
-        LoginCount = loginCount;
-    }
-
     public String getName() {
         return Name;
     }
 
-    public void setName(String name) {
-        Name = name;
-    }
-
     public String getNRIC() {
         return NRIC;
-    }
-
-    public void setNRIC(String NRIC) {
-        this.NRIC = NRIC;
     }
 
     public boolean regexUsername() {

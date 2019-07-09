@@ -6,12 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.util.Date;
-
-public class DBHandler extends SQLiteOpenHelper {
-    private static final String TAG = "MyDBhandler";
+public class Dbhandler extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "accountDB.db";
     public static final String ACCOUNTS = "Accounts";
     public static final String COLUMN_USERNAME = "UserName";
     public static final String COLUMN_PASSWORD = "Password";
@@ -22,8 +18,10 @@ public class DBHandler extends SQLiteOpenHelper {
     public static final String COLUMN_Course = "Course";
     public static final String COLUMN_LoginCount = "LoginCount";
     public static final String COLUMN_NAME = "Name";
+    private static final String TAG = "MyDBhandler";
+    private static final String DATABASE_NAME = "accountDB.db";
 
-    public DBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public Dbhandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -50,21 +48,21 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(COLUMN_PASSWORD, a.getPassword());
         values.put(COLUMN_USERNAME, a.getUsername());
         values.put(COLUMNN_DOB, a.getDOB());
+        values.put(COLUMN_STUDENTNO, a.getStudentNo());
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(ACCOUNTS, null, values);
         db.close();
     }
 
-    public boolean findAccount(String username, String password) {
+    public boolean findAccount(String username, String password, Account a) {
         String query = "SELECT * FROM " + ACCOUNTS + " WHERE" + COLUMN_USERNAME + " =\"" + username + "\"" + " AND" + COLUMN_PASSWORD + " =\"" + password;
-        Account a = new Account();
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {
             a.setUsername(cursor.getString(6));
-            a.setUsername(cursor.getString(7));
+            a.setPassword(cursor.getString(7));
             db.close();
             return true;
         }
