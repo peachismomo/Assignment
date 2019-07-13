@@ -55,7 +55,7 @@ public class Dbhandler extends SQLiteOpenHelper {
     }
 
     public boolean findAccount(String username, String password, Account a) {
-        String query = "SELECT * FROM " + ACCOUNTS + " WHERE" + COLUMN_USERNAME + " =\"" + username + "\"" + " AND" + COLUMN_PASSWORD + " =\"" + password;
+        String query = "SELECT * FROM " + ACCOUNTS + " WHERE " + COLUMN_USERNAME + " =\"" + username + "\"" + " AND " + COLUMN_PASSWORD + " =\"" + password;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
