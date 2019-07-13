@@ -82,7 +82,9 @@ public class Account {
     }
 
     public boolean regexPassword() {
-        Pattern patternPass = Pattern.compile("^+[$&+,:;=?@#|]+[A-Z]+[0-9]$");
+//        Pattern patternPass = Pattern.compile("^+[$&+,:;=?@#|]+[A-Z]+[0-9]$");
+        // use this for testing.
+        Pattern patternPass = Pattern.compile("^[A-Za-z]{6,12}$");
         Matcher matcherPassword = patternPass.matcher(password);
         return matcherPassword.matches();
     }
