@@ -17,12 +17,12 @@ public class Account {
     public Account(String username, String password, String course, String email, String studentNo, String DOB, int loginCount, String name, String NRIC) {
         this.username = username;
         this.password = password;
-        Course = course;
-        Email = email;
-        StudentNo = studentNo;
+        this.Course = course;
+        this.Email = email;
+        this.StudentNo = studentNo;
         this.DOB = DOB;
-        LoginCount = loginCount;
-        Name = name;
+        this.LoginCount = loginCount;
+        this.Name = name;
         this.NRIC = NRIC;
     }
 
