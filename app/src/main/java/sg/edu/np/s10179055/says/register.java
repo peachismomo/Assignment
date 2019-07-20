@@ -68,20 +68,7 @@ public class register extends AppCompatActivity {
         if (password.equals(rePassword)) {
             if (registerAcc.regex()) {
                 reference = FirebaseDatabase.getInstance().getReference().child("Member");
-                reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-                            maxid = dataSnapshot.getChildrenCount();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-                reference.child(String.valueOf(maxid + 1)).setValue(registerAcc);
+                reference.push().setValue(registerAcc);
 
                 Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
 
