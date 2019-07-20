@@ -36,12 +36,17 @@ public class Login extends AppCompatActivity {
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot data: dataSnapshot.getChildren()){
-                    if (data.child(username).exists()) {
-                        Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getApplicationContext(),"Nope",Toast.LENGTH_SHORT).show();
-                    }
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    Account checkLogin = data.getValue(Account.class);
+                    if (checkLogin.getUsername().equals(username)) {
+                        if (checkLogin.getPassword().equals(password)) {
+                            Intent studentPage = new Intent(getApplicationContext(), student.class);
+                            startActivity(studentPage);
+                            Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(getApplicationContext(), "Password invalid", Toast.LENGTH_LONG).show();
+                    } else
+                        Toast.makeText(getApplicationContext(), "Username invalid", Toast.LENGTH_SHORT).show();
                 }
             }
 
