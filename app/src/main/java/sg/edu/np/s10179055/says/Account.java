@@ -1,5 +1,14 @@
 package sg.edu.np.s10179055.says;
 
+import android.support.annotation.NonNull;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,21 +23,8 @@ public class Account {
     private String Name;
     private String NRIC;
 
-    public Account(String username, String password, String course, String email, String studentNo, String DOB, int loginCount, String name, String NRIC) {
-        this.username = username;
-        this.password = password;
-        this.Course = course;
-        this.Email = email;
-        this.StudentNo = studentNo;
-        this.DOB = DOB;
-        this.LoginCount = loginCount;
-        this.Name = name;
-        this.NRIC = NRIC;
-    }
+    public Account() {
 
-    public Account(String username, String password) {
-        this.username = username;
-        this.password = password;
     }
 
     public String getUsername() {
@@ -51,28 +47,56 @@ public class Account {
         return Course;
     }
 
+    public void setCourse(String course) {
+        this.Course = course;
+    }
+
     public String getEmail() {
         return Email;
+    }
+
+    public void setEmail(String email) {
+        this.Email = email;
     }
 
     public String getStudentNo() {
         return StudentNo;
     }
 
+    public void setStudentNo(String studentNo) {
+        this.StudentNo = studentNo;
+    }
+
     public String getDOB() {
         return DOB;
+    }
+
+    public void setDOB(String DOB) {
+        this.DOB = DOB;
     }
 
     public int getLoginCount() {
         return LoginCount;
     }
 
+    public void setLoginCount(int loginCount) {
+        this.LoginCount = loginCount;
+    }
+
     public String getName() {
         return Name;
     }
 
+    public void setName(String name) {
+        this.Name = name;
+    }
+
     public String getNRIC() {
         return NRIC;
+    }
+
+    public void setNRIC(String NRIC) {
+        this.NRIC = NRIC;
     }
 
     public boolean regexUsername() {
