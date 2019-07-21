@@ -42,12 +42,12 @@ public class register extends AppCompatActivity {
 
     public void onConfirm(View view) {
         final String username = UsernameET.getText().toString();
-        String name = NameET.getText().toString();
-        String nric = NRICET.getText().toString();
-        String dob = DOBET.getText().toString();
-        String StudentId = StudentIDET.getText().toString();
-        String course = CourseET.getText().toString();
-        String email = EmailET.getText().toString();
+        final String name = NameET.getText().toString();
+        final String nric = NRICET.getText().toString();
+        final String dob = DOBET.getText().toString();
+        final String StudentId = StudentIDET.getText().toString();
+        final String course = CourseET.getText().toString();
+        final String email = EmailET.getText().toString();
         final String password = PasswordET.getText().toString();
         final String rePassword = RePasswordET.getText().toString();
         int loginCount = 0;
@@ -64,18 +64,18 @@ public class register extends AppCompatActivity {
         registerAcc.setPassword(password);
         registerAcc.setLoginCount(loginCount);
 
+        reference = FirebaseDatabase.getInstance().getReference().child("Member");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot data: dataSnapshot.getChildren()){
                     Account checkUser = data.getValue(Account.class);
                     if(checkUser.getUsername().equals(username)){
-                        Toast.makeText(getApplicationContext(),"Username taken.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Username Taken", Toast.LENGTH_SHORT).show();
                     }
                     else{
                         if (password.equals(rePassword)) {
                             if (registerAcc.regex()) {
-                                reference = FirebaseDatabase.getInstance().getReference().child("Member");
                                 reference.push().setValue(registerAcc);
 
                                 Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
@@ -97,7 +97,5 @@ public class register extends AppCompatActivity {
 
             }
         });
-
-
     }
 }
