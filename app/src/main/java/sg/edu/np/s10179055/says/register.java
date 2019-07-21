@@ -18,7 +18,6 @@ public class register extends AppCompatActivity {
 
     EditText UsernameET, NameET, NRICET, DOBET, StudentIDET, CourseET, EmailET, PasswordET, RePasswordET;
     DatabaseReference reference;
-    long maxid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,18 +41,18 @@ public class register extends AppCompatActivity {
     }
 
     public void onConfirm(View view) {
-        String username = UsernameET.getText().toString();
-        String name = NameET.getText().toString();
-        String nric = NRICET.getText().toString();
-        String dob = DOBET.getText().toString();
-        String StudentId = StudentIDET.getText().toString();
-        String course = CourseET.getText().toString();
-        String email = EmailET.getText().toString();
-        String password = PasswordET.getText().toString();
-        String rePassword = RePasswordET.getText().toString();
+        final String username = UsernameET.getText().toString();
+        final String name = NameET.getText().toString();
+        final String nric = NRICET.getText().toString();
+        final String dob = DOBET.getText().toString();
+        final String StudentId = StudentIDET.getText().toString();
+        final String course = CourseET.getText().toString();
+        final String email = EmailET.getText().toString();
+        final String password = PasswordET.getText().toString();
+        final String rePassword = RePasswordET.getText().toString();
         int loginCount = 0;
 
-        Account registerAcc = new Account();
+        final Account registerAcc = new Account();
 
         registerAcc.setUsername(username);
         registerAcc.setName(name);
@@ -65,20 +64,38 @@ public class register extends AppCompatActivity {
         registerAcc.setPassword(password);
         registerAcc.setLoginCount(loginCount);
 
-        if (password.equals(rePassword)) {
-            if (registerAcc.regex()) {
-                reference = FirebaseDatabase.getInstance().getReference().child("Member");
-                reference.push().setValue(registerAcc);
+        reference = FirebaseDatabase.getInstance().getReference().child("Member");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot data: dataSnapshot.getChildren()){
+                    Account checkUser = data.getValue(Account.class);
+                    if(checkUser.getUsername().equals(username)){
+                        Toast.makeText(getApplicationContext(),"Username Taken", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        if (password.equals(rePassword)) {
+                            if (registerAcc.regex()) {
+                                reference.push().setValue(registerAcc);
 
-                Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
 
-                Intent studentPage = new Intent(getApplicationContext(), student.class);
-                startActivity(studentPage);
-            } else if (registerAcc.regexPassword()) {
-                Toast.makeText(getApplicationContext(), "Please ensure that username is 6-12 characters long with at least one numerical value.", Toast.LENGTH_SHORT).show();
-            } else
-                Toast.makeText(getApplicationContext(), "Please ensure that contains at least one uppercase letter, one numerical value and one symbol.", Toast.LENGTH_SHORT).show();
-        } else
-            Toast.makeText(getApplicationContext(), "Passwords do not match", Toast.LENGTH_SHORT).show();
+                                Intent studentPage = new Intent(getApplicationContext(), student.class);
+                                startActivity(studentPage);
+                            } else if (registerAcc.regexPassword()) {
+                                Toast.makeText(getApplicationContext(), "Please ensure that username is 6-12 characters long with at least one numerical value.", Toast.LENGTH_SHORT).show();
+                            } else
+                                Toast.makeText(getApplicationContext(), "Please ensure that contains at least one uppercase letter, one numerical value and one symbol.", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(getApplicationContext(), "Passwords do not match", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }
