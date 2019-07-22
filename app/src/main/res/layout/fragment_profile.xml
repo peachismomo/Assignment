@@ -30,6 +30,7 @@
             android:cursorVisible="false"
             android:focusable="false"
             android:focusableInTouchMode="false"
+            android:background="null"
             />
 
         <TextView
