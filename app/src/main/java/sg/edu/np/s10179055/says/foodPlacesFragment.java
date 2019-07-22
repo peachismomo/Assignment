@@ -2,15 +2,14 @@ package sg.edu.np.s10179055.says;
 
 
 import android.os.Bundle;
-import android.provider.DocumentsContract;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -32,49 +31,43 @@ public class foodPlacesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View RootView = inflater.inflate(R.layout.fragment_profile, container, false);
-
-
-        /*
-        Code your spaghetti here
-        */
+        final View RootView = inflater.inflate(R.layout.fragment_food_places, container, false);
         fetchData process = new fetchData();
         process.execute();
+
+        Button display = RootView.findViewById(R.id.button);
+        display.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                data = new ArrayList<>();
+                for (int x = 1; x <= 4; x++) {
+                    if (x == 1) {
+                        Location l = new Location();
+                        l.setLocation("Makanplace");
+                        l.setCurrent(currentMKP);
+                        data.add(l);
+                    } else if (x == 2) {
+                        Location l = new Location();
+                        l.setLocation("Foodclub");
+                        l.setCurrent(currentTwentyTwo);
+                        data.add(l);
+                    } else if (x == 3) {
+                        Location l = new Location();
+                        l.setLocation("Munch");
+                        l.setCurrent(currentMunch);
+                        data.add(l);
+                    } else {
+                        Location l = new Location();
+                        l.setLocation("Poolside");
+                        l.setCurrent(currentPoolside);
+                        data.add(l);
+                    }
+                }
+                LocationAdapter adapter = new LocationAdapter(RootView.getContext(), R.layout.layout_location, data);
+                ListView list = RootView.findViewById(R.id.listViewLocation);
+                list.setAdapter(adapter);
+            }
+        });
         return RootView;
     }
-
-    public void onClick(View view)
-    {
-        data = new ArrayList<>();
-        for (int x=1; x<=4; x++){
-            if (x==1){
-                Location l = new Location();
-                l.setLocation("Makanplace");
-                l.setCurrent(currentMKP);
-                data.add(l);
-            }
-            else if (x==2){
-                Location l = new Location();
-                l.setLocation("Foodclub");
-                l.setCurrent(currentTwentyTwo);
-                data.add(l);
-            }
-            else if (x==3){
-                Location l = new Location();
-                l.setLocation("Munch");
-                l.setCurrent(currentMunch);
-                data.add(l);
-            }
-            else {
-                Location l = new Location();
-                l.setLocation("Poolside");
-                l.setCurrent(currentPoolside);
-                data.add(l);
-            }
-        }
-        LocationAdapter adapter= new LocationAdapter(this,R.layout.layout_location,data);
-        ListView list=view.findViewById(R.id.listViewLocation);
-        list.setAdapter(adapter);
-    }
-
 }

@@ -27,7 +27,6 @@
             android:ems="10"
             android:inputType="none"
             android:text="Name"
-            android:background="null"
             />
 
         <TextView

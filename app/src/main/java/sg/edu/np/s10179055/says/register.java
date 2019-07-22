@@ -68,12 +68,11 @@ public class register extends AppCompatActivity {
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot data: dataSnapshot.getChildren()){
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
                     Account checkUser = data.getValue(Account.class);
-                    if(checkUser.getUsername().equals(username)){
-                        Toast.makeText(getApplicationContext(),"Username Taken", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
+                    if (checkUser.getUsername().equals(username)) {
+                        Toast.makeText(getApplicationContext(), "Username Taken", Toast.LENGTH_SHORT).show();
+                    } else {
                         if (password.equals(rePassword)) {
                             if (registerAcc.regex()) {
                                 reference.push().setValue(registerAcc);
