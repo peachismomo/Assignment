@@ -30,6 +30,7 @@ public class Login extends AppCompatActivity {
 
     public void onLoginClick(View v) {
         login(tvUserC.getText().toString(), tvPassC.getText().toString());
+        //runOnce(); run this only if the locations get messed up
     }
 
     public void login(final String username, final String password) {
@@ -57,4 +58,37 @@ public class Login extends AppCompatActivity {
         });
     }
 
+    public void runOnce(){ //do not edit this code
+        DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference("FooodPlaces");
+        userLocation foodClub, munch, poolSide, makanPlace;
+        foodClub = new userLocation();
+        munch = new userLocation();
+        poolSide = new userLocation();
+        makanPlace = new userLocation();
+
+        foodClub.setName("Food Club");
+        foodClub.setLatitude(1.33438563);
+        foodClub.setLongitude(103.77546608);
+        foodClub.setSeaLevel(35);
+
+        munch.setName("Munch");
+        munch.setLatitude(1.33174705);
+        munch.setLongitude(103.77676159);
+        munch.setSeaLevel(34);
+
+        poolSide.setName("Pool Side");
+        poolSide.setLatitude(1.33508818);
+        poolSide.setLongitude(103.77627343);
+        poolSide.setSeaLevel(35);
+
+        makanPlace.setName("Makan Place");
+        makanPlace.setLatitude(1.3319637);
+        makanPlace.setLongitude(103.7745599);
+        makanPlace.setSeaLevel(42);
+
+        locationRef.push().setValue(foodClub);
+        locationRef.push().setValue(munch);
+        locationRef.push().setValue(poolSide);
+        locationRef.push().setValue(makanPlace);
+    }
 }
