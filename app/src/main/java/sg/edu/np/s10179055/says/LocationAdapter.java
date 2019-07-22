@@ -16,7 +16,6 @@ public class LocationAdapter extends ArrayAdapter<Location> {
 
     public LocationAdapter(Context c, int layout, ArrayList<Location> data) {
         super(c, layout, data);
-
         this.c = c;
         this.layout = layout;
         this.data = data;
