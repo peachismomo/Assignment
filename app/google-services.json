@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "254433279896",
+    "firebase_url": "https://assignment-a9327.firebaseio.com",
+    "project_id": "assignment-a9327",
+    "storage_bucket": "assignment-a9327.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:254433279896:android:9494f6ab58521af6",
+        "android_client_info": {
+          "package_name": "sg.edu.np.s10179055.says"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "254433279896-i0k8kh3564og3bpnar99n9pp1cbbek74.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sg.edu.np.s10179055.says",
+            "certificate_hash": "0b3be12ab101aa930dfdbdcd373a1f3db72270c3"
+          }
+        },
+        {
+          "client_id": "254433279896-tnfbvlfppa4vsveecm1cridmchm3dagt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sg.edu.np.s10179055.says",
+            "certificate_hash": "1a0202abf7002920780d54bc8ce0af47e17326a3"
+          }
+        },
+        {
+          "client_id": "254433279896-ssp1jvggdq23rqchdeap2nd4e18q2q77.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuK3Gi5KOd7PUDlDk42u6SsrhWedCoCcw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "254433279896-ssp1jvggdq23rqchdeap2nd4e18q2q77.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
