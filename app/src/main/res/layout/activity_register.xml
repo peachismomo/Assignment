@@ -109,6 +109,7 @@
 
         <EditText
             android:id="@+id/passwordTxt"
+            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp" />
@@ -121,6 +122,7 @@
 
         <EditText
             android:id="@+id/reenterPasswordTxt"
+            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp" />

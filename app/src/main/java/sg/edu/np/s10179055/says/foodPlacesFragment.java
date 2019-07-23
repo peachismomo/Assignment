@@ -37,6 +37,34 @@ public class foodPlacesFragment extends Fragment {
         fetchData process = new fetchData();
         process.execute();
 
+        data = new ArrayList<>();
+        for (int x = 1; x <= 4; x++) {
+            if (x == 1) {
+                Location l = new Location();
+                l.setLocation("Makanplace");
+                l.setCurrent(currentMKP);
+                data.add(l);
+            } else if (x == 2) {
+                Location l = new Location();
+                l.setLocation("Foodclub");
+                l.setCurrent(currentTwentyTwo);
+                data.add(l);
+            } else if (x == 3) {
+                Location l = new Location();
+                l.setLocation("Munch");
+                l.setCurrent(currentMunch);
+                data.add(l);
+            } else {
+                Location l = new Location();
+                l.setLocation("Poolside");
+                l.setCurrent(currentPoolside);
+                data.add(l);
+            }
+        }
+        LocationAdapter adapter = new LocationAdapter(RootView.getContext(), R.layout.layout_location, data);
+        final ListView list = RootView.findViewById(R.id.listViewLocation);
+        list.setAdapter(adapter);
+
         Button display = RootView.findViewById(R.id.button);
         display.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -46,7 +46,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="13dp"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/btnSignin"
