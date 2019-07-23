@@ -20,6 +20,8 @@ public class PagerController extends FragmentPagerAdapter {
             case 1:
                 return new foodPlacesFragment();
             case 2:
+                return new mapsFragment();
+            case 3:
                 return new reportingFragment();
             default:
                 return null;
