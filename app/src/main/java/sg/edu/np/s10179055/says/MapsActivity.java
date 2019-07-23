@@ -1,5 +1,6 @@
 package sg.edu.np.s10179055.says;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.location.Location;
 import android.support.v4.app.FragmentActivity;
@@ -21,6 +22,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private FusedLocationProviderClient fusedLocationClient;
+    Account acc= new Account();
+    int Cantid;
+    LatLng selectedcant;
+    String Title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +35,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
+        Intent rcvCanteen=getIntent();
+        Cantid=rcvCanteen.getIntExtra("canteenid",0);
     }
 
 
@@ -48,6 +54,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
         try {
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.
@@ -61,15 +68,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         } catch (Resources.NotFoundException e) {
             Log.e("MapsActivity", "Can't find style. Error: ", e);
         }
-        // Add a marker in Sydney and move the camera
-        LatLng mkp = new LatLng(1.3322332,103.7744952);
-        LatLng munch= new LatLng(1.33174705,103.77676159);
-        LatLng FC= new LatLng(1.33438563,103.77546608);
-        LatLng PS= new LatLng(1.33508818,103.77627343);
-        mMap.addMarker(new MarkerOptions().position(mkp).title("Makan Place"));
-        mMap.addMarker(new MarkerOptions().position(munch).title("Munch"));
-        mMap.addMarker(new MarkerOptions().position(FC).title("Food Club"));
-        mMap.addMarker(new MarkerOptions().position(PS).title("Pool Side"));
-       // mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mkp,20));
+
+        if(Cantid==0){//makanplace
+            selectedcant = new LatLng(1.3319637, 103.7745599);
+            Title="Makanplace";
+        }
+        else if(Cantid==1){//fc
+            selectedcant = new LatLng(1.33438563, 103.77546608);
+            Title="FoodClub";
+        }
+        else if(Cantid==2) {//munch
+            selectedcant = new LatLng(1.33174705, 103.77676159);
+            Title="Munch";
+        }
+        else if(Cantid==3){//ps
+            selectedcant = new LatLng(1.33508818, 103.77627343);
+            Title="PoolSide";
+        }
+
+
+        acc.getLat(this,MapsActivity.this);
+        acc.getLong(this,MapsActivity.this);
+        LatLng YOU = new LatLng(acc.getLat(this,MapsActivity.this), acc.getLong(this,MapsActivity.this));
+
+        mMap.addMarker(new MarkerOptions().position(YOU).title("Where you are now"));
+        mMap.addMarker(new MarkerOptions().position(selectedcant).title(Title));
+
+       mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(YOU,12));
     }
 }
