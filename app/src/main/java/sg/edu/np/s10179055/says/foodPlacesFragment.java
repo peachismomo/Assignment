@@ -1,11 +1,13 @@
 package sg.edu.np.s10179055.says;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -64,10 +66,22 @@ public class foodPlacesFragment extends Fragment {
                     }
                 }
                 LocationAdapter adapter = new LocationAdapter(RootView.getContext(), R.layout.layout_location, data);
-                ListView list = RootView.findViewById(R.id.listViewLocation);
+                final ListView list = RootView.findViewById(R.id.listViewLocation);
                 list.setAdapter(adapter);
+
+                list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        int item=list.getCheckedItemPosition();
+                        Intent maps = new Intent(RootView.getContext(), MapsActivity.class);
+                        maps.putExtra("canteenid",item);
+                        startActivity(maps);
+                    }
+                });
             }
         });
+
+
         return RootView;
     }
 }
