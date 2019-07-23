@@ -137,9 +137,14 @@ public class Account {
         return longg;
     }
 
-    public double getLat(Context c) {
+    public double getLat(Context c, Activity a) {
+        int MY_PERMISSION_ACCESS_COARSE_LOCATION = 1;
         FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(c);
-
+        if (ContextCompat.checkSelfPermission(c, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(a,
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    MY_PERMISSION_ACCESS_COARSE_LOCATION);
+        }
         fusedLocationClient.getLastLocation().addOnSuccessListener((Activity) c, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
