@@ -37,6 +37,12 @@
             android:text="Food Places" />
 
         <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/userMap"
+            android:text="Maps"/>
+
+        <android.support.design.widget.TabItem
             android:id="@+id/reportTab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -11,9 +11,7 @@ public class student extends AppCompatActivity {
 
     Toolbar mToolbar;
     TabLayout mTabLayout;
-    TabItem profileTab;
-    TabItem foodPlacesTab;
-    TabItem reportingTab;
+    TabItem profileTab, foodPlacesTab,reportingTab,mapsTab;
     ViewPager mPager;
     PagerController mPagerController;
 
@@ -27,6 +25,7 @@ public class student extends AppCompatActivity {
         profileTab = findViewById(R.id.profileTab);
         foodPlacesTab = findViewById(R.id.foodPlacesTab);
         reportingTab = findViewById(R.id.reportTab);
+        mapsTab = findViewById(R.id.userMap);
         mPager = findViewById(R.id.viewPager);
 
         setSupportActionBar(mToolbar);
