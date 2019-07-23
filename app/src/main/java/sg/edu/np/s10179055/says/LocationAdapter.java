@@ -24,8 +24,8 @@ public class LocationAdapter extends ArrayAdapter<Location> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = convertView;
-        if (v==null){
-            v = LayoutInflater.from(c).inflate(layout,parent,false);
+        if (v == null) {
+            v = LayoutInflater.from(c).inflate(layout, parent, false);
         }
         TextView location = v.findViewById(R.id.textView);
         TextView currentNum = v.findViewById(R.id.textView2);

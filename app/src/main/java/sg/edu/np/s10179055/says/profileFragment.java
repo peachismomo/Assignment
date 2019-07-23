@@ -72,9 +72,6 @@ public class profileFragment extends Fragment {
                         nric.setText(CurrentUser.getNRIC());
                         course.setText(CurrentUser.getCourse());
                         email.setText(CurrentUser.getEmail());
-
-
-                        //do the rest here
                     }
                 }
             }

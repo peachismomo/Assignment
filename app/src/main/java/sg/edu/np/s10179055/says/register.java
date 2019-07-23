@@ -1,6 +1,7 @@
 package sg.edu.np.s10179055.says;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -65,6 +66,8 @@ public class register extends AppCompatActivity {
         registerAcc.setMode(currentMode);
 
         reference = FirebaseDatabase.getInstance().getReference().child("Member");
+/*        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("Member").push().setValue(registerAcc);*/
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -77,14 +80,19 @@ public class register extends AppCompatActivity {
                             if (registerAcc.regex()) {
                                 reference.push().setValue(registerAcc);
 
+                                SharedPreferences.Editor editor = getSharedPreferences("UserDetails", MODE_PRIVATE).edit();
+                                editor.putString("username", username);
+                                editor.apply();
+
                                 Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
 
                                 Intent studentPage = new Intent(getApplicationContext(), student.class);
                                 startActivity(studentPage);
+                                break;
                             } else if (registerAcc.regexPassword()) {
                                 Toast.makeText(getApplicationContext(), "Please ensure that username is 6-12 characters long with at least one numerical value.", Toast.LENGTH_SHORT).show();
                             } else
-                                Toast.makeText(getApplicationContext(), "Please ensure that contains at least one uppercase letter, one numerical value and one symbol.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Please ensure that password contains at least one uppercase letter, one numerical value and one symbol.", Toast.LENGTH_SHORT).show();
                         } else
                             Toast.makeText(getApplicationContext(), "Passwords do not match", Toast.LENGTH_SHORT).show();
                     }
