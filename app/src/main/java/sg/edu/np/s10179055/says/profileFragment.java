@@ -42,7 +42,7 @@ public class profileFragment extends Fragment {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot)
                 {
-                    String name = dataSnapshot.child("Name").getValue().toString();
+                    String name = dataSnapshot.child("name").getValue().toString();
                     n.setText(name);
                 }
 

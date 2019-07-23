@@ -41,7 +41,7 @@ public class Login extends AppCompatActivity {
                     Account checkLogin = data.getValue(Account.class);
                     if (checkLogin.getUsername().equals(username)) {
                         if (checkLogin.getPassword().equals(password)) {
-                            Intent studentPage = new Intent(getApplicationContext(), MapsActivity.class);
+                            Intent studentPage = new Intent(getApplicationContext(), student.class);
                             startActivity(studentPage);
                             Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_SHORT).show();
                         } else
