@@ -1,5 +1,13 @@
 package sg.edu.np.s10179055.says;
 
+import android.app.Activity;
+import android.content.Context;
+import android.location.Location;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,6 +21,7 @@ public class Account {
     private int LoginCount;
     private String Name;
     private String NRIC;
+    final double longg=0;
 
     public Account() {
 
@@ -104,5 +113,21 @@ public class Account {
 
     public boolean regex() {
         return regexUsername() && regexPassword();
+    }
+
+    public double getLong(Context c){
+
+        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(c);
+
+        fusedLocationClient.getLastLocation().addOnSuccessListener((Activity) c, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                  longg=location.getLongitude();
+            }
+        });
+        return longg;
+    }
+    public double getLat(){
+
     }
 }
