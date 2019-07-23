@@ -1,6 +1,7 @@
 package sg.edu.np.s10179055.says;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -41,9 +42,13 @@ public class Login extends AppCompatActivity {
                     Account checkLogin = data.getValue(Account.class);
                     if (checkLogin.getUsername().equals(username)) {
                         if (checkLogin.getPassword().equals(password)) {
-                            Intent studentPage = new Intent(getApplicationContext(), MapsActivity.class);
-                            startActivity(studentPage);
+                            SharedPreferences.Editor editor = getSharedPreferences("UserDetails", MODE_PRIVATE).edit();
+                            editor.putString("username",username);
+                            editor.apply();
+
                             Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_SHORT).show();
+                            Intent studentPage = new Intent(getApplicationContext(), student.class);
+                            startActivity(studentPage);
                         } else
                             Toast.makeText(getApplicationContext(), "Password invalid", Toast.LENGTH_LONG).show();
                     } else
