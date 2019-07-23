@@ -50,7 +50,7 @@ public class register extends AppCompatActivity {
         final String email = EmailET.getText().toString();
         final String password = PasswordET.getText().toString();
         final String rePassword = RePasswordET.getText().toString();
-        int loginCount = 0;
+        int currentMode = 1; //0 is offline, 1 is online
 
         final Account registerAcc = new Account();
 
@@ -62,7 +62,7 @@ public class register extends AppCompatActivity {
         registerAcc.setCourse(course);
         registerAcc.setEmail(email);
         registerAcc.setPassword(password);
-        registerAcc.setLoginCount(loginCount);
+        registerAcc.setMode(currentMode);
 
         reference = FirebaseDatabase.getInstance().getReference().child("Member");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {

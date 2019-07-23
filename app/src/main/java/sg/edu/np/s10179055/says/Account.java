@@ -1,8 +1,12 @@
 package sg.edu.np.s10179055.says;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.Location;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -18,7 +22,7 @@ public class Account {
     private String Email;
     private String StudentNo;
     private String DOB;
-    private int LoginCount;
+    private int Mode;
     private String Name;
     private String NRIC;
     private double longg;
@@ -76,12 +80,12 @@ public class Account {
         this.DOB = DOB;
     }
 
-    public int getLoginCount() {
-        return LoginCount;
+    public int getMode() {
+        return Mode;
     }
 
-    public void setLoginCount(int loginCount) {
-        this.LoginCount = loginCount;
+    public void setMode(int userMode) {
+        this.Mode = userMode;
     }
 
     public String getName() {
@@ -116,25 +120,30 @@ public class Account {
         return regexUsername() && regexPassword();
     }
 
-    public double getLong(Context c){
-
+    public double getLong(Context c, Activity a) {
+        int MY_PERMISSION_ACCESS_COARSE_LOCATION = 1;
         FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(c);
-
+        if (ContextCompat.checkSelfPermission(c, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(a,
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    MY_PERMISSION_ACCESS_COARSE_LOCATION);
+        }
         fusedLocationClient.getLastLocation().addOnSuccessListener((Activity) c, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
-                  longg= location.getLongitude();
+                longg = location.getLongitude();
             }
         });
         return longg;
     }
-    public double getLat(Context c){
+
+    public double getLat(Context c) {
         FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(c);
 
         fusedLocationClient.getLastLocation().addOnSuccessListener((Activity) c, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
-                latt= location.getLatitude();
+                latt = location.getLatitude();
             }
         });
         return latt;
