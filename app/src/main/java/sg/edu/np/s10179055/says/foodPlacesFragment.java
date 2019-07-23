@@ -72,9 +72,9 @@ public class foodPlacesFragment extends Fragment {
                 list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        int item=list.getCheckedItemPosition();
+
                         Intent maps = new Intent(RootView.getContext(), MapsActivity.class);
-                        maps.putExtra("canteenid",item);
+                        maps.putExtra("canteenid",position);
                         startActivity(maps);
                     }
                 });

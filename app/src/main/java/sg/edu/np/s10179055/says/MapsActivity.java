@@ -1,6 +1,8 @@
 package sg.edu.np.s10179055.says;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Location;
 import android.support.v4.app.FragmentActivity;
@@ -69,7 +71,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Log.e("MapsActivity", "Can't find style. Error: ", e);
         }
 
-        if(Cantid==0){//makanplace
+        if(Cantid==-1){//makanplace
             selectedcant = new LatLng(1.3319637, 103.7745599);
             Title="Makanplace";
         }
