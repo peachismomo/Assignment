@@ -21,7 +21,8 @@ public class Account {
     private int LoginCount;
     private String Name;
     private String NRIC;
-    final double longg=0;
+    private double longg;
+    private double latt;
 
     public Account() {
 
@@ -122,12 +123,20 @@ public class Account {
         fusedLocationClient.getLastLocation().addOnSuccessListener((Activity) c, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
-                  longg=location.getLongitude();
+                  longg= location.getLongitude();
             }
         });
         return longg;
     }
-    public double getLat(){
+    public double getLat(Context c){
+        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(c);
 
+        fusedLocationClient.getLastLocation().addOnSuccessListener((Activity) c, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                latt= location.getLatitude();
+            }
+        });
+        return latt;
     }
 }
