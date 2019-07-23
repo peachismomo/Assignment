@@ -5,6 +5,8 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -16,6 +18,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private FusedLocationProviderClient fusedLocationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +28,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
     }
+
+
 
 
     /**
@@ -54,8 +60,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Log.e("MapsActivity", "Can't find style. Error: ", e);
         }
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(1.3322332,103.7744952);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Makan Place"));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney,20));
+        LatLng mkp = new LatLng(1.3322332,103.7744952);
+        LatLng munch= new LatLng(1.33174705,103.77676159);
+        LatLng FC= new LatLng(1.33438563,103.77546608);
+        LatLng PS= new LatLng(1.33508818,103.77627343);
+        mMap.addMarker(new MarkerOptions().position(mkp).title("Makan Place"));
+        mMap.addMarker(new MarkerOptions().position(munch).title("Munch"));
+        mMap.addMarker(new MarkerOptions().position(FC).title("Food Club"));
+        mMap.addMarker(new MarkerOptions().position(PS).title("Pool Side"));
+       // mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mkp,20));
     }
 }
