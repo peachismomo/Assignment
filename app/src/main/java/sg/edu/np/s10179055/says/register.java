@@ -84,6 +84,9 @@ public class register extends AppCompatActivity {
                                 editor.putString("username", username);
                                 editor.apply();
 
+                                Intent penis = new Intent(getApplicationContext(),profileFragment.class);
+                                startActivity(penis);
+
                                 Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
 
                                 Intent studentPage = new Intent(getApplicationContext(), student.class);
