@@ -8,10 +8,12 @@ import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
@@ -28,9 +30,7 @@ public class Account {
     private int Mode;
     private String Name;
     private String NRIC;
-    private double longg;
-    private double latt;
-
+    private Location Loca;
     public Account() {
 
     }
@@ -123,53 +123,4 @@ public class Account {
         return regexUsername() && regexPassword();
     }
 
-    public double getLong(Context c, Activity a) {
-        int MY_PERMISSION_ACCESS_FINE_LOCATION = 1;
-        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(c);
-        if (ContextCompat.checkSelfPermission(c, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(a,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    MY_PERMISSION_ACCESS_FINE_LOCATION);
-        }
-        else{
-            fusedLocationClient.getLastLocation().addOnSuccessListener((Activity) c, new OnSuccessListener<Location>() {
-                @Override
-                public void onSuccess(Location location) {
-                    if(location!=null){
-                        longg = location.getLongitude();
-                    }
-                    else{
-                        longg=102.373722;
-                    }
-                }
-            });
-
-
-        }
-        return longg;
-    }
-    public double getLat(Context c, Activity a) {
-        int MY_PERMISSION_ACCESS_FINE_LOCATION = 1;
-        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(c);
-        if (ContextCompat.checkSelfPermission(c, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(a,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    MY_PERMISSION_ACCESS_FINE_LOCATION);
-        }
-        else {
-            fusedLocationClient.getLastLocation().addOnSuccessListener((Activity) c, new OnSuccessListener<Location>() {
-                @Override
-                public void onSuccess(Location location) {
-                    if(location!=null){
-                        latt = location.getLatitude();
-                    }
-                    else{
-                        latt=0.1234233;
-                    }
-
-                }
-            });
-        }
-        return latt;
-    }
 }
