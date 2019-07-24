@@ -1,21 +1,15 @@
 package sg.edu.np.s10179055.says;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
-import android.content.pm.PackageManager;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,10 +24,21 @@ public class Account {
     private int Mode;
     private String Name;
     private String NRIC;
+    private String imgId;
     private Location Loca;
+
     public Account() {
 
     }
+
+    public String getImgId() {
+        return imgId;
+    }
+
+    public void setImgId(String imgId) {
+        this.imgId = imgId;
+    }
+
 
     public String getUsername() {
         return username;
@@ -123,4 +128,57 @@ public class Account {
         return regexUsername() && regexPassword();
     }
 
+    public Account getCurrentUser(Context context, final callBack call){
+        final String currentUsername = getCurrentUsername(context);
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Member");
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    Account CurrentUser = data.getValue(Account.class);
+                    if (CurrentUser.getUsername().equals(currentUsername)) {
+                        call.onCallBack(CurrentUser);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        return new Account();
+    }
+
+    public interface callBack{
+        void onCallBack(Account account);
+    }
+
+    public void setFirebaseImgId(final String imgId, Context context){
+        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Member");
+        final String currentUsername= getCurrentUsername(context);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    Account CurrentUser = data.getValue(Account.class);
+                    if (CurrentUser.getUsername().equals(currentUsername)) {
+                        reference.child(data.getKey()).child("imgId").setValue(imgId);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public String getCurrentUsername(Context context){
+        SharedPreferences currentUser = context.getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
+        String currentUsername = currentUser.getString("username", "");
+        return currentUsername;
+    }
 }
