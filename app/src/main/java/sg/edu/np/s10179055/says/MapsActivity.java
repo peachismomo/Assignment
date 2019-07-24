@@ -5,10 +5,16 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Location;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -24,10 +30,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private FusedLocationProviderClient fusedLocationClient;
-    Account acc= new Account();
+    GoogleLocation gl=new GoogleLocation();
     int Cantid;
     LatLng selectedcant;
     String Title;
+    double Lat;
+    double Long;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +45,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        Intent rcvCanteen=getIntent();
-        Cantid=rcvCanteen.getIntExtra("canteenid",0);
+        Intent rcvCanteen = getIntent();
+        Cantid = rcvCanteen.getIntExtra("canteenid", 0);
+        gl.getLoca(this,MapsActivity.this);
+
     }
 
 
@@ -71,7 +81,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Log.e("MapsActivity", "Can't find style. Error: ", e);
         }
 
-        if(Cantid==-1){//makanplace
+        if(Cantid==-0){//makanplace
             selectedcant = new LatLng(1.3319637, 103.7745599);
             Title="Makanplace";
         }
@@ -87,15 +97,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             selectedcant = new LatLng(1.33508818, 103.77627343);
             Title="PoolSide";
         }
-
-
-        acc.getLat(this,MapsActivity.this);
-        acc.getLong(this,MapsActivity.this);
-        LatLng YOU = new LatLng(acc.getLat(this,MapsActivity.this), acc.getLong(this,MapsActivity.this));
+        LatLng YOU = new LatLng(Lat,Long);
 
         mMap.addMarker(new MarkerOptions().position(YOU).title("Where you are now"));
         mMap.addMarker(new MarkerOptions().position(selectedcant).title(Title));
 
        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(YOU,12));
     }
+
+
 }
