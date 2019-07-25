@@ -5,21 +5,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 public class GoogleLocation {
@@ -57,6 +51,8 @@ public class GoogleLocation {
                 public void onComplete(@NonNull Task<Location> task) {
                     if (task.isSuccessful()) {
                         Loca = task.getResult();
+                        setLat(Loca.getLatitude());
+                        setLong(Loca.getLongitude());
                         LatLng YOU = new LatLng(Loca.getLatitude(), Loca.getLongitude());
                         mMap.addMarker(new MarkerOptions().position(YOU).title("Where you are now"));
                     }
@@ -65,5 +61,4 @@ public class GoogleLocation {
             mMap.setMyLocationEnabled(true);
         }
     }
-
 }
