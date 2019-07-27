@@ -53,8 +53,6 @@ public class GoogleLocation {
                         Loca = task.getResult();
                         setLat(Loca.getLatitude());
                         setLong(Loca.getLongitude());
-                        LatLng YOU = new LatLng(Loca.getLatitude(), Loca.getLongitude());
-                        mMap.addMarker(new MarkerOptions().position(YOU).title("Where you are now"));
                     }
                 }
             });
