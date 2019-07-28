@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/npcrop"
+    android:background="@drawable/screen"
     android:orientation="vertical"
     android:scaleType="center"
     tools:context=".MainActivity">
@@ -15,20 +15,34 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/button"
+        android:fontFamily="@font/BebasKai-Regular"
         android:onClick="onLogin"
         android:text="Login"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guestBtn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
+
 
     <Button
         android:id="@+id/guestBtn"
+        android:background="@drawable/button"
+        android:textColor="#FFFFFF"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="32dp"
+        android:fontFamily="@font/BebasKai-Regular"
         android:onClick="onGuest"
+        android:textStyle="bold"
+        android:textSize="22sp"
         android:text="Guest"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
