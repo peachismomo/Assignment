@@ -5,8 +5,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -19,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 public class Login extends AppCompatActivity {
     DatabaseReference reference;
     EditText tvUserC, tvPassC;
+    TextView registerTxt;
     GoogleLocation gl=new GoogleLocation();
 
     @Override
@@ -28,6 +31,16 @@ public class Login extends AppCompatActivity {
         reference = FirebaseDatabase.getInstance().getReference("Member");
         tvUserC = findViewById(R.id.User_Edit);
         tvPassC = findViewById(R.id.pass_edit);
+        registerTxt = findViewById(R.id.registerTxt);
+
+        registerTxt.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Intent register =new Intent(getBaseContext(), register.class);
+                startActivity(register);
+                return true;
+            }
+        });
     }
 
     public void onLoginClick(View v) {

@@ -87,8 +87,6 @@ public class profileFragment extends Fragment {
                         public void onFailure(@NonNull Exception exception) {
                         }
                     });
-
-
                 }
             }
         });
@@ -141,7 +139,7 @@ public class profileFragment extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Toast.makeText(getActivity().getApplicationContext(), "image uploaded", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity().getApplicationContext(), "Image uploaded", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
