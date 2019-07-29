@@ -144,12 +144,12 @@
             android:orientation="horizontal">
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="203dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/button"
                 android:onClick="onCancel"
                 android:text="Cancel"
-                android:background="@drawable/button"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#FFFFFF" />
 
             <Button
                 android:layout_width="wrap_content"
