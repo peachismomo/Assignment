@@ -29,14 +29,15 @@
         android:layout_gravity="center"
         android:layout_marginTop="18dp"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:background="@drawable/plaintext"/>
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
-        android:text="prompt_password"
+        android:text="Password"
         android:textStyle="bold" />
 
     <EditText
@@ -46,7 +47,9 @@
         android:layout_gravity="center"
         android:layout_marginTop="13dp"
         android:ems="10"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:background="@drawable/plaintext"
+        />
 
     <Button
         android:id="@+id/btnSignin"
@@ -55,5 +58,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="32dp"
         android:onClick="onLoginClick"
-        android:text="Sign In" />
+        android:text="Sign In"
+        android:background="@drawable/button"/>
 </LinearLayout>

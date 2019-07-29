@@ -19,6 +19,7 @@ public class register extends AppCompatActivity {
 
     EditText UsernameET, NameET, NRICET, DOBET, StudentIDET, CourseET, EmailET, PasswordET, RePasswordET;
     DatabaseReference reference;
+    final Account thisUser = new Account();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,7 @@ public class register extends AppCompatActivity {
         registerAcc.setEmail(email);
         registerAcc.setPassword(password);
         registerAcc.setMode(currentMode);
+        registerAcc.setImgId("none");
 
         reference = FirebaseDatabase.getInstance().getReference().child("Member");
 /*        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();

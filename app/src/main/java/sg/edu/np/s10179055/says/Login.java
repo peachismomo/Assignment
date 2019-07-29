@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 public class Login extends AppCompatActivity {
     DatabaseReference reference;
     EditText tvUserC, tvPassC;
+    GoogleLocation gl=new GoogleLocation();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
