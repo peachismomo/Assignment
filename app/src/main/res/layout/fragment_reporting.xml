@@ -23,7 +23,8 @@
         android:id="@+id/subjectTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textEmailSubject" />
+        android:inputType="textEmailSubject"
+        android:background="@drawable/plaintext"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -36,11 +37,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="start|top"
-        android:lines="10" />
+        android:lines="10"
+        android:background="@drawable/plaintext"/>
 
     <Button
         android:id="@+id/sendBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Send" />
+        android:text="Send"
+        android:background="@drawable/button"
+        android:textColor="#FFFFFF"/>
 </LinearLayout>
