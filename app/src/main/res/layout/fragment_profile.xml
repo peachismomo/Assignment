@@ -6,7 +6,7 @@
     tools:context=".profileFragment">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="213dp"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
@@ -14,29 +14,38 @@
             android:id="@+id/userImg"
             android:layout_width="144dp"
             android:layout_height="146dp"
-            android:src="@mipmap/ic_launcher_round"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_launcher_round" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:layout_gravity="center">
 
             <Button
                 android:id="@+id/btnUploadImage"
-                android:layout_width="203dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
                 android:background="@drawable/button"
                 android:text="Upload"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#FFFFFF" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="16dp" />
 
             <Button
                 android:id="@+id/btnTakePic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Take Photo"
+                android:layout_width="121dp"
+                android:layout_height="46dp"
                 android:background="@drawable/button"
-                android:textColor="#FFFFFF"/>
+                android:text="Take Photo"
+                android:textColor="#FFFFFF" />
         </LinearLayout>
     </LinearLayout>
 
@@ -151,7 +160,6 @@
             android:id="@+id/btnChangePass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="onClick"
             android:text="Change Password" />
 
     </LinearLayout>
