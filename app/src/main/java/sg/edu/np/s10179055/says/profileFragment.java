@@ -3,10 +3,13 @@ package sg.edu.np.s10179055.says;
 
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +21,21 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
+
+import java.net.URI;
+import java.util.concurrent.Executor;
 
 import static android.app.Activity.RESULT_OK;
+import static android.support.constraint.Constraints.TAG;
 
 
 /**
@@ -49,6 +60,8 @@ public class profileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View RootView = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         user = RootView.findViewById(R.id.tvUser);
         name = RootView.findViewById(R.id.tvName);
@@ -96,7 +109,7 @@ public class profileFragment extends Fragment {
                 course.setText(account.getCourse());
                 email.setText(account.getEmail());
                 if (!account.getImgId().equals("none")) {
-                    img.setImageURI(Uri.parse(account.getImgId()));
+                    Picasso.get().load(account.getImgId()).into(img);
                 }
             }
         });
@@ -115,7 +128,12 @@ public class profileFragment extends Fragment {
         uploadPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fileUpload();
+                FirebaseUser user = mAuth.getCurrentUser();
+                if (user != null) {
+                    fileUpload();
+                } else {
+                    signInAnonymously(mAuth);
+                }
  /*               if (uploadTask != null && uploadTask.isInProgress()) {
                     Toast.makeText(getActivity().getApplicationContext(), "Photo is uploading, please wait.", Toast.LENGTH_SHORT).show();
                 } else */
@@ -136,28 +154,39 @@ public class profileFragment extends Fragment {
     }
 
     public void upload() {
-        String imgId = System.currentTimeMillis() + "." + getExtension(imguri);
-        thisUser.setFirebaseImgId(imgId, getActivity().getApplicationContext());
-        StorageReference ref = storageReference.child(imgId);
+        final String imgId = System.currentTimeMillis() + "." + getExtension(imguri);
 
-        uploadTask = ref.putFile(imguri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        // Get a URL to the uploaded content
-                        // Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                        Toast.makeText(getActivity().getApplicationContext(), "Image uploaded!", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle unsuccessful uploads
-                        // ...
-                        Toast.makeText(getActivity().getApplicationContext(), "Nani", Toast.LENGTH_SHORT).show();
-                    }
-                });
+        final StorageReference ref = storageReference.child(imgId);
 
+        ref.child(imgId).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                uploadTask = storageReference.putFile(imguri)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                // Get a URL to the uploaded content
+                                String dlLink = ref.child(imgId).getDownloadUrl().toString();
+                                thisUser.setFirebaseImgId(dlLink, getActivity().getApplicationContext());
+                                Toast.makeText(getActivity().getApplicationContext(), "Image uploaded!", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle unsuccessful uploads
+                                // ...
+                                Toast.makeText(getActivity().getApplicationContext(), "wtf!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+            }
+        });
     }
 
     private String getExtension(Uri uri) {
@@ -174,5 +203,20 @@ public class profileFragment extends Fragment {
             img.setImageURI(imguri);
             upload();
         }
+    }
+
+    private void signInAnonymously(FirebaseAuth mAuth) {
+        mAuth.signInAnonymously().addOnSuccessListener(getActivity(), new  OnSuccessListener<AuthResult>() {
+            @Override
+            public void onSuccess(AuthResult authResult) {
+                // do your stuff
+            }
+        })
+                .addOnFailureListener(getActivity(), new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Log.e(TAG, "signInAnonymously:FAILURE", exception);
+                    }
+                });
     }
 }
