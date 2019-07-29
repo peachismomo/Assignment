@@ -15,7 +15,8 @@
             android:layout_height="90dp"
             android:gravity="center"
             android:text="Register"
-            android:textSize="40dp" />
+            android:textSize="40dp"
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -27,7 +28,8 @@
             android:id="@+id/nameTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:background="@drawable/plaintext"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -39,7 +41,8 @@
             android:id="@+id/studentIdTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:background="@drawable/plaintext"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -51,7 +54,8 @@
             android:id="@+id/emailTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:background="@drawable/plaintext"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -63,7 +67,8 @@
             android:id="@+id/dateOfBirthTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:background="@drawable/plaintext"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -75,7 +80,8 @@
             android:id="@+id/nric"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:background="@drawable/plaintext"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -87,7 +93,8 @@
             android:id="@+id/courseTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:background="@drawable/plaintext"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -99,7 +106,8 @@
             android:id="@+id/usernameTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:background="@drawable/plaintext"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -112,7 +120,8 @@
             android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:background="@drawable/plaintext"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -125,7 +134,8 @@
             android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:background="@drawable/plaintext"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -137,13 +147,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onCancel"
-                android:text="Cancel" />
+                android:text="Cancel"
+                android:background="@drawable/button"
+                android:textColor="#FFFFFF"/>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onConfirm"
-                android:text="Confirm" />
+                android:text="Confirm"
+                android:background="@drawable/button"
+                android:textColor="#FFFFFF"/>
         </LinearLayout>
     </LinearLayout>
 

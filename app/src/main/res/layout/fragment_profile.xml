@@ -24,15 +24,19 @@
 
             <Button
                 android:id="@+id/btnUploadImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Upload"/>
+                android:layout_width="203dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/button"
+                android:text="Upload"
+                android:textColor="#FFFFFF"/>
 
             <Button
                 android:id="@+id/btnTakePic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Take Photo"/>
+                android:text="Take Photo"
+                android:background="@drawable/button"
+                android:textColor="#FFFFFF"/>
         </LinearLayout>
     </LinearLayout>
 
