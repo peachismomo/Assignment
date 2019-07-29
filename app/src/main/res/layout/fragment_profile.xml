@@ -46,6 +46,7 @@
                 android:layout_width="121dp"
                 android:layout_height="46dp"
                 android:text="Take Photo"
+                android:onClick="onCameraClick"
                 android:textStyle="bold"
                 android:background="@drawable/button"
                 android:backgroundTint="#FF7450"

@@ -13,7 +13,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.STORAGE"/>
 
-
     <application
 
         android:allowBackup="true"
@@ -46,7 +45,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>/>
         </activity>
-        <activity android:name=".guest" />
         <activity android:name=".student" />
         <activity android:name=".MainActivity"/>
     </application>
