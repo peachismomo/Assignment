@@ -3,8 +3,6 @@ package sg.edu.np.s10179055.says;
 
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -29,10 +28,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
-
-import java.net.URI;
-import java.util.concurrent.Executor;
 
 import static android.app.Activity.RESULT_OK;
 import static android.support.constraint.Constraints.TAG;
@@ -45,9 +40,9 @@ public class profileFragment extends Fragment {
     private TextView user, name, sNo, nric, course, email;
     private DatabaseReference r;
     private StorageTask uploadTask;
-    public Uri imguri;
+
     ImageView img;
-    StorageReference storageReference = FirebaseStorage.getInstance().getReference("ProfilePhoto");
+    StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     final Account thisUser = new Account();
 
     public profileFragment() {
@@ -71,34 +66,6 @@ public class profileFragment extends Fragment {
         email = RootView.findViewById(R.id.tvEmail);
         img = RootView.findViewById(R.id.userImg);
 
-        /*SharedPreferences currentUser = RootView.getContext().getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
-        final String currentUsername = currentUser.getString("username", "");
-
-        storageReference = FirebaseStorage.getInstance().getReference("ProfilePhoto");
-        r = FirebaseDatabase.getInstance().getReference().child("Member");
-
-        r.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    Account CurrentUser = data.getValue(Account.class);
-                    if (CurrentUser.getUsername().equals(currentUsername)) {
-                        user.setText(CurrentUser.getUsername());
-                        name.setText(CurrentUser.getName());
-                        sNo.setText(CurrentUser.getStudentNo());
-                        nric.setText(CurrentUser.getNRIC());
-                        course.setText(CurrentUser.getCourse());
-                        email.setText(CurrentUser.getEmail());
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });*/
-
         thisUser.getCurrentUser(getActivity().getApplicationContext(), new Account.callBack() {
             @Override
             public void onCallBack(Account account) {
@@ -109,7 +76,19 @@ public class profileFragment extends Fragment {
                 course.setText(account.getCourse());
                 email.setText(account.getEmail());
                 if (!account.getImgId().equals("none")) {
-                    Picasso.get().load(account.getImgId()).into(img);
+                    StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+                    storageRef.child(account.getUsername() + "/" + account.getImgId()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Glide.with(getActivity().getApplicationContext()).load(uri).into(img);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                        }
+                    });
+
+
                 }
             }
         });
@@ -134,9 +113,6 @@ public class profileFragment extends Fragment {
                 } else {
                     signInAnonymously(mAuth);
                 }
- /*               if (uploadTask != null && uploadTask.isInProgress()) {
-                    Toast.makeText(getActivity().getApplicationContext(), "Photo is uploading, please wait.", Toast.LENGTH_SHORT).show();
-                } else */
             }
         });
         return RootView;
@@ -153,40 +129,27 @@ public class profileFragment extends Fragment {
         startActivityForResult(fileChoose, 1);
     }
 
-    public void upload() {
+    public void upload(final Uri imguri) {
+        final Account current = new Account();
         final String imgId = System.currentTimeMillis() + "." + getExtension(imguri);
+        current.setFirebaseImgId(imgId, getActivity().getApplicationContext());
 
-        final StorageReference ref = storageReference.child(imgId);
 
-        ref.child(imgId).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
+        final StorageReference ref = storageReference.child(current.getCurrentUsername(getActivity().getApplicationContext()) + "/" + imgId);
 
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                uploadTask = storageReference.putFile(imguri)
-                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                // Get a URL to the uploaded content
-                                String dlLink = ref.child(imgId).getDownloadUrl().toString();
-                                thisUser.setFirebaseImgId(dlLink, getActivity().getApplicationContext());
-                                Toast.makeText(getActivity().getApplicationContext(), "Image uploaded!", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception exception) {
-                                // Handle unsuccessful uploads
-                                // ...
-                                Toast.makeText(getActivity().getApplicationContext(), "wtf!", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
-            }
-        });
+        ref.putFile(imguri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Toast.makeText(getActivity().getApplicationContext(), "image uploaded", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Toast.makeText(getActivity(), exception.getCause().getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
     private String getExtension(Uri uri) {
@@ -199,14 +162,16 @@ public class profileFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri imguri;
+            Account current = new Account();
             imguri = data.getData();
             img.setImageURI(imguri);
-            upload();
+            upload(imguri);
         }
     }
 
     private void signInAnonymously(FirebaseAuth mAuth) {
-        mAuth.signInAnonymously().addOnSuccessListener(getActivity(), new  OnSuccessListener<AuthResult>() {
+        mAuth.signInAnonymously().addOnSuccessListener(getActivity(), new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
                 // do your stuff
