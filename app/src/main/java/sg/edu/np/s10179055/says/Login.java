@@ -33,6 +33,7 @@ public class Login extends AppCompatActivity {
         tvPassC = findViewById(R.id.pass_edit);
         registerTxt = findViewById(R.id.registerTxt);
 
+        //open register activity
         registerTxt.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -53,13 +54,17 @@ public class Login extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     Account checkLogin = data.getValue(Account.class);
+                    //Check if user exists
                     if (checkLogin.getUsername().equals(username)) {
+                        //Check if password is correct
                         if (checkLogin.getPassword().equals(password)) {
+                            //Set current username with sharedpreferences
                             SharedPreferences.Editor editor = getSharedPreferences("UserDetails", MODE_PRIVATE).edit();
                             editor.putString("username",username);
                             editor.apply();
 
                             Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_SHORT).show();
+                            //Go to app
                             Intent studentPage = new Intent(getApplicationContext(), student.class);
                             startActivity(studentPage);
                             break;

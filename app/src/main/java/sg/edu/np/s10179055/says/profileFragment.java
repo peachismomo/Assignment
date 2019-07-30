@@ -95,10 +95,12 @@ public class profileFragment extends Fragment {
                 course.setText(account.getCourse());
                 email.setText(account.getEmail());
                 if (!account.getImgId().equals("none")) {
+                    //Retrieve image from database by username and image id
                     StorageReference storageRef = FirebaseStorage.getInstance().getReference();
                     storageRef.child(account.getUsername() + "/" + account.getImgId()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
+                            //use glide to load image into imgview
                             Glide.with(getActivity().getApplicationContext()).load(uri).into(img);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -112,6 +114,7 @@ public class profileFragment extends Fragment {
 
         final Button changePassword = RootView.findViewById(R.id.btnChangePass);
 
+        //Go to change password activity
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,19 +123,16 @@ public class profileFragment extends Fragment {
             }
         });
 
+        //When user uploads photo
         final Button uploadPhoto = RootView.findViewById(R.id.btnUploadImage);
         uploadPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseUser user = mAuth.getCurrentUser();
-                if (user != null) {
-                    fileUpload();
-                } else {
-                    signInAnonymously(mAuth);
-                }
+                fileUpload();
             }
         });
 
+        //When user wants to takes picture with camera
         final Button cameraBtn = RootView.findViewById(R.id.btnTakePic);
         cameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +144,7 @@ public class profileFragment extends Fragment {
         return RootView;
     }
 
+    //Open camera
     public void onCameraClick() {
         Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (camera.resolveActivity(getContext().getPackageManager()) != null) {
@@ -159,6 +160,7 @@ public class profileFragment extends Fragment {
         }
     }
 
+    //Open image gallery
     public void fileUpload() {
         Intent fileChoose = new Intent();
         fileChoose.setType("image/*");
@@ -166,11 +168,13 @@ public class profileFragment extends Fragment {
         startActivityForResult(fileChoose, 1);
     }
 
+    //Upload photo to firebase storage as uri
     public void upload(final Uri imguri) {
         final Account current = new Account();
         final String imgId = System.currentTimeMillis() + "." + getExtension(imguri);
         current.setFirebaseImgId(imgId, getActivity().getApplicationContext());
 
+        //User's profile photos are stored under their username
         final StorageReference ref = storageReference.child(current.getCurrentUsername(getContext()) + "/" + imgId);
 
         ref.putFile(imguri)
@@ -188,6 +192,7 @@ public class profileFragment extends Fragment {
                 });
     }
 
+    //Create image with temporary file
     public File createPhotoFile() {
         File image = null;
         String name = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -200,39 +205,28 @@ public class profileFragment extends Fragment {
         return image;
     }
 
+    //Get extension of uri
     private String getExtension(Uri uri) {
         ContentResolver contentResolver = getActivity().getApplicationContext().getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
+    //request code 1 is upload photo, 2 is camera
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri imguri = data.getData();
             img.setImageURI(imguri);
+            //upload to database
             upload(imguri);
         }
         if (requestCode == 2) {
             Bitmap bitmap = BitmapFactory.decodeFile(pathToFile);
             img.setImageBitmap(bitmap);
+            //upload to database
             upload(photoUri);
         }
-    }
-
-    private void signInAnonymously(FirebaseAuth mAuth) {
-        mAuth.signInAnonymously().addOnSuccessListener(getActivity(), new OnSuccessListener<AuthResult>() {
-            @Override
-            public void onSuccess(AuthResult authResult) {
-
-            }
-        })
-                .addOnFailureListener(getActivity(), new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        Log.e(TAG, "signInAnonymously:FAILURE", exception);
-                    }
-                });
     }
 }

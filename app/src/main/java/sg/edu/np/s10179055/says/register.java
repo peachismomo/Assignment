@@ -66,8 +66,11 @@ public class register extends AppCompatActivity {
         registerAcc.setPassword(password);
         registerAcc.setMode(currentMode);
         registerAcc.setImgId("none");
+        registerAcc.setLocationLat(0);
+        registerAcc.setLocationLong(0);
 
         reference = FirebaseDatabase.getInstance().getReference().child("Member");
+        //Run this when resetting database.
 /*        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Member").push().setValue(registerAcc);*/
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
