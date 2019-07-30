@@ -239,9 +239,8 @@ public class Account {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     Account CurrentUser = data.getValue(Account.class);
-                    if (CurrentUser.getMode() == 0) {
-                        setMarker(map, CurrentUser, context);
-                    }
+                    setMarker(map, CurrentUser, context);
+
                 }
             }
 
