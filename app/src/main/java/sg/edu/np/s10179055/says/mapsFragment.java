@@ -1,12 +1,15 @@
 package sg.edu.np.s10179055.says;
 
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -65,6 +68,9 @@ public class mapsFragment extends Fragment {
                 }
                 //setting markers of user
                 acc.locationArray(mMap);
+                if (ActivityCompat.checkSelfPermission(c, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    mMap.setMyLocationEnabled(true);
+                }
             }
         });
         return RootView;
