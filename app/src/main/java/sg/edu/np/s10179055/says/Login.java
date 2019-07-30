@@ -45,10 +45,6 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        //getting location and push to firebase
-        gl.getLoca2(this,Login.this);
-        acc.fireBaseLocation(Login.this,gl.getLong(),gl.getLat());
-
     }
 
     public void onLoginClick(View v) {
