@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="sg.edu.np.s10179055.says">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -36,12 +37,12 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="sg.edu.np.s10179055.says.fileprovider"
+            android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
 
         <activity

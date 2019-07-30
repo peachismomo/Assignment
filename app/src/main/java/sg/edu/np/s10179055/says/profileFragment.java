@@ -59,7 +59,6 @@ public class profileFragment extends Fragment {
     ImageView img;
     StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     final Account thisUser = new Account();
-    int mode;
     public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
 
     public profileFragment() {
@@ -122,7 +121,6 @@ public class profileFragment extends Fragment {
         uploadPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mode = 1;
                 FirebaseUser user = mAuth.getCurrentUser();
                 if (user != null) {
                     fileUpload();
@@ -136,7 +134,6 @@ public class profileFragment extends Fragment {
         cameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mode = 0;
                 onCameraClick();
             }
         });
@@ -144,41 +141,12 @@ public class profileFragment extends Fragment {
         return RootView;
     }
 
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
-        return image;
-    }
-
     public void onCameraClick() {
         Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (camera.resolveActivity(getActivity().getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File...
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(getActivity().getApplicationContext(),
-                        "sg.edu.np.s10179055.says.fileprovider",
-                        photoFile);
-                camera.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(camera, 2);
-            }
-        }
+        File file = new File(Environment.getExternalStorageDirectory(), thisUser.getCurrentUsername(getContext()) + ".jpg");
+        Uri uri = FileProvider.getUriForFile(getContext(), getContext().getApplicationContext().getPackageName() + ".provider", file);
+        camera.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, uri);
+        startActivityForResult(camera, 2);
     }
 
     public void fileUpload() {
@@ -224,14 +192,11 @@ public class profileFragment extends Fragment {
             img.setImageURI(imguri);
             upload(imguri);
         }
-        if (requestCode == 2 && resultCode == RESULT_OK) {
-            if (checkPermissionREAD_EXTERNAL_STORAGE(getContext())) {
-                Uri uri = data.getData();
-                img.setImageURI(uri);
-                Toast.makeText(getContext(), uri.toString(),Toast.LENGTH_SHORT).show();
-                upload(uri);
-            }
-
+        if (requestCode == 2) {
+            File file = new File(Environment.getExternalStorageDirectory(), thisUser.getCurrentUsername(getContext()) + ".jpg");
+            Uri uri = FileProvider.getUriForFile(getContext(), getContext().getApplicationContext().getPackageName() + ".provider", file);
+            img.setImageURI(uri);
+            upload(uri);
         }
     }
 
@@ -249,14 +214,6 @@ public class profileFragment extends Fragment {
                     }
                 });
     }
-
-    private Uri getImageUri(Context context, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
-        return Uri.parse(path);
-    }
-
 
     public boolean checkPermissionREAD_EXTERNAL_STORAGE(final Context context) {
         int currentAPIVersion = Build.VERSION.SDK_INT;
