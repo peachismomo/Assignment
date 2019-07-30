@@ -3,7 +3,9 @@ package sg.edu.np.s10179055.says;
 
 import android.Manifest;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -26,6 +28,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -134,6 +141,38 @@ public class profileFragment extends Fragment {
             }
         });
 
+        final Button changeModeBtn = RootView.findViewById(R.id.btnChangeMode);
+        changeModeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String currentusername = thisUser.getCurrentUsername(getContext());
+                final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Member");
+                reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot memberSnapshot : dataSnapshot.getChildren()) {
+                            Account current = memberSnapshot.getValue(Account.class);
+                            if(current.getUsername().equals(currentusername)){
+                                if(current.getMode()==1){
+                                    reference.child(memberSnapshot.getKey()).child("mode").setValue(0);
+                                    Toast.makeText(getContext(),"Mode set to offline.", Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    reference.child(memberSnapshot.getKey()).child("mode").setValue(1);
+                                    Toast.makeText(getContext(),"Mode set to online.", Toast.LENGTH_SHORT).show();
+                                }
+                                break;
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
         return RootView;
     }
 

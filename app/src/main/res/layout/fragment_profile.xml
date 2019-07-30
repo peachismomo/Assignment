@@ -66,7 +66,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="408dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -109,8 +109,8 @@
                 android:layout_marginEnd="8dp"
                 android:text="Username:"
                 android:textColor="#FFF"
-                android:textStyle="bold"
-                android:textSize="16dp" />
+                android:textSize="16dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvUser"
@@ -137,9 +137,9 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="Student ID:"
-                android:textStyle="bold"
                 android:textColor="#FFF"
-                android:textSize="16dp" />
+                android:textSize="16dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvStudentID"
@@ -166,9 +166,9 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="NRIC:"
-                android:textStyle="bold"
                 android:textColor="#FFF"
-                android:textSize="16dp" />
+                android:textSize="16dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvNRIC"
@@ -195,9 +195,9 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="Course:"
-                android:textStyle="bold"
                 android:textColor="#FFF"
-                android:textSize="16dp" />
+                android:textSize="16dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvCourse"
@@ -224,9 +224,9 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="E-Mail:"
-                android:textStyle="bold"
                 android:textColor="#FFF"
-                android:textSize="16dp" />
+                android:textSize="16dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvEmail"
@@ -236,23 +236,39 @@
                 android:textSize="16dp" />
         </LinearLayout>
 
-
         <Space
             android:layout_width="match_parent"
             android:layout_height="24dp" />
 
-        <Button
-            android:id="@+id/btnChangePass"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="32dp"
-            android:background="@drawable/button"
-            android:backgroundTint="#fc9c73"
-            android:text="Change Password"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold" />
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btnChangePass"
+                android:layout_width="180dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/button"
+                android:layout_marginRight="8dp"
+                android:backgroundTint="#fc9c73"
+                android:text="Change Password"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnChangeMode"
+                android:layout_width="180dp"
+                android:layout_height="37dp"
+                android:background="@drawable/button"
+                android:backgroundTint="#fc9c73"
+                android:text="Change Mode"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
 
     </LinearLayout>
 
