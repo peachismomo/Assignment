@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -40,13 +41,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
+import static android.os.Environment.getExternalStoragePublicDirectory;
 import static android.support.constraint.Constraints.TAG;
 
 
@@ -54,13 +55,12 @@ import static android.support.constraint.Constraints.TAG;
  * A simple {@link Fragment} subclass.
  */
 public class profileFragment extends Fragment {
-    String mCurrentPhotoPath;
     private TextView user, name, sNo, nric, course, email;
     ImageView img;
     StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     final Account thisUser = new Account();
-    int mode;
-    public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
+    String pathToFile;
+    Uri photoUri;
 
     public profileFragment() {
         // Required empty public constructor
@@ -72,8 +72,10 @@ public class profileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View RootView = inflater.inflate(R.layout.fragment_profile, container, false);
-
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        if (Build.VERSION.SDK_INT >= 23) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
+        }
 
         user = RootView.findViewById(R.id.tvUser);
         name = RootView.findViewById(R.id.tvName);
@@ -122,7 +124,6 @@ public class profileFragment extends Fragment {
         uploadPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mode = 1;
                 FirebaseUser user = mAuth.getCurrentUser();
                 if (user != null) {
                     fileUpload();
@@ -136,7 +137,6 @@ public class profileFragment extends Fragment {
         cameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mode = 0;
                 onCameraClick();
             }
         });
@@ -144,38 +144,16 @@ public class profileFragment extends Fragment {
         return RootView;
     }
 
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
-        return image;
-    }
-
     public void onCameraClick() {
         Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (camera.resolveActivity(getActivity().getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File...
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(getActivity().getApplicationContext(),
-                        "sg.edu.np.s10179055.says.fileprovider",
-                        photoFile);
-                camera.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+        if (camera.resolveActivity(getContext().getPackageManager()) != null) {
+            File file = null;
+            file = createPhotoFile();
+
+            if (file != null) {
+                pathToFile = file.getAbsolutePath();
+                photoUri = FileProvider.getUriForFile(getActivity(), "sg.edu.np.s10179055.says.provider", file);
+                camera.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
                 startActivityForResult(camera, 2);
             }
         }
@@ -193,7 +171,7 @@ public class profileFragment extends Fragment {
         final String imgId = System.currentTimeMillis() + "." + getExtension(imguri);
         current.setFirebaseImgId(imgId, getActivity().getApplicationContext());
 
-        final StorageReference ref = storageReference.child(current.getCurrentUsername(getActivity().getApplicationContext()) + "/" + imgId);
+        final StorageReference ref = storageReference.child(current.getCurrentUsername(getContext()) + "/" + imgId);
 
         ref.putFile(imguri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -210,6 +188,18 @@ public class profileFragment extends Fragment {
                 });
     }
 
+    public File createPhotoFile() {
+        File image = null;
+        String name = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        File storage = getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        try {
+            image = File.createTempFile(name, ".jpg", storage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
+
     private String getExtension(Uri uri) {
         ContentResolver contentResolver = getActivity().getApplicationContext().getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
@@ -224,14 +214,10 @@ public class profileFragment extends Fragment {
             img.setImageURI(imguri);
             upload(imguri);
         }
-        if (requestCode == 2 && resultCode == RESULT_OK) {
-            if (checkPermissionREAD_EXTERNAL_STORAGE(getContext())) {
-                Uri uri = data.getData();
-                img.setImageURI(uri);
-                Toast.makeText(getContext(), uri.toString(),Toast.LENGTH_SHORT).show();
-                upload(uri);
-            }
-
+        if (requestCode == 2) {
+            Bitmap bitmap = BitmapFactory.decodeFile(pathToFile);
+            img.setImageBitmap(bitmap);
+            upload(photoUri);
         }
     }
 
@@ -239,7 +225,7 @@ public class profileFragment extends Fragment {
         mAuth.signInAnonymously().addOnSuccessListener(getActivity(), new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
-                // do your stuff
+
             }
         })
                 .addOnFailureListener(getActivity(), new OnFailureListener() {
@@ -248,59 +234,5 @@ public class profileFragment extends Fragment {
                         Log.e(TAG, "signInAnonymously:FAILURE", exception);
                     }
                 });
-    }
-
-    private Uri getImageUri(Context context, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
-        return Uri.parse(path);
-    }
-
-
-    public boolean checkPermissionREAD_EXTERNAL_STORAGE(final Context context) {
-        int currentAPIVersion = Build.VERSION.SDK_INT;
-        if (currentAPIVersion >= android.os.Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(context,
-                    Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(
-                        (Activity) context,
-                        Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                    showDialog("External storage", context,
-                            Manifest.permission.READ_EXTERNAL_STORAGE);
-
-                } else {
-                    ActivityCompat
-                            .requestPermissions(
-                                    (Activity) context,
-                                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                                    MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
-                }
-                return false;
-            } else {
-                return true;
-            }
-
-        } else {
-            return true;
-        }
-    }
-
-    public void showDialog(final String msg, final Context context,
-                           final String permission) {
-        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
-        alertBuilder.setCancelable(true);
-        alertBuilder.setTitle("Permission necessary");
-        alertBuilder.setMessage(msg + " permission is necessary");
-        alertBuilder.setPositiveButton(android.R.string.yes,
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        ActivityCompat.requestPermissions((Activity) context,
-                                new String[]{permission},
-                                MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
-                    }
-                });
-        AlertDialog alert = alertBuilder.create();
-        alert.show();
     }
 }
