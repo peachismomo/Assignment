@@ -13,11 +13,13 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +41,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
 import static android.support.constraint.Constraints.TAG;
@@ -48,10 +54,12 @@ import static android.support.constraint.Constraints.TAG;
  * A simple {@link Fragment} subclass.
  */
 public class profileFragment extends Fragment {
+    String mCurrentPhotoPath;
     private TextView user, name, sNo, nric, course, email;
     ImageView img;
     StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     final Account thisUser = new Account();
+    int mode;
     public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
 
     public profileFragment() {
@@ -114,6 +122,7 @@ public class profileFragment extends Fragment {
         uploadPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mode = 1;
                 FirebaseUser user = mAuth.getCurrentUser();
                 if (user != null) {
                     fileUpload();
@@ -127,6 +136,7 @@ public class profileFragment extends Fragment {
         cameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mode = 0;
                 onCameraClick();
             }
         });
@@ -134,9 +144,41 @@ public class profileFragment extends Fragment {
         return RootView;
     }
 
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+        return image;
+    }
+
     public void onCameraClick() {
         Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(camera, 2);
+        if (camera.resolveActivity(getActivity().getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File...
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(getActivity().getApplicationContext(),
+                        "sg.edu.np.s10179055.says.fileprovider",
+                        photoFile);
+                camera.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(camera, 2);
+            }
+        }
     }
 
     public void fileUpload() {
@@ -150,7 +192,6 @@ public class profileFragment extends Fragment {
         final Account current = new Account();
         final String imgId = System.currentTimeMillis() + "." + getExtension(imguri);
         current.setFirebaseImgId(imgId, getActivity().getApplicationContext());
-
 
         final StorageReference ref = storageReference.child(current.getCurrentUsername(getActivity().getApplicationContext()) + "/" + imgId);
 
@@ -185,11 +226,10 @@ public class profileFragment extends Fragment {
         }
         if (requestCode == 2 && resultCode == RESULT_OK) {
             if (checkPermissionREAD_EXTERNAL_STORAGE(getContext())) {
-                Bitmap photo = (Bitmap) data.getExtras().get("data");
                 Uri uri = data.getData();
-                /*                Uri uri = getImageUri(getActivity(), photo);
                 img.setImageURI(uri);
-                upload(uri);*/
+                Toast.makeText(getContext(), uri.toString(),Toast.LENGTH_SHORT).show();
+                upload(uri);
             }
 
         }
