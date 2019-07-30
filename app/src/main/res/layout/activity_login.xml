@@ -9,7 +9,7 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="296dp" />
+        android:layout_height="368dp" />
 
     <TextView
         android:id="@+id/textViewDisplay"
@@ -65,7 +65,7 @@
         android:layout_height="58dp"
         android:layout_gravity="center"
         android:background="@drawable/button"
-        android:backgroundTint="#FF7450"
+        android:backgroundTint="#fc9c73"
         android:onClick="onLoginClick"
         android:text="Sign In"
         android:textColor="#FFFFFF"

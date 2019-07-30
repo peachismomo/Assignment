@@ -20,6 +20,7 @@ public class register extends AppCompatActivity {
     EditText UsernameET, NameET, NRICET, DOBET, StudentIDET, CourseET, EmailET, PasswordET, RePasswordET;
     DatabaseReference reference;
     final Account thisUser = new Account();
+    int emptyFields;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class register extends AppCompatActivity {
     }
 
     public void onConfirm(View view) {
+        emptyFields = 0;
         final String username = UsernameET.getText().toString();
         final String name = NameET.getText().toString();
         final String nric = NRICET.getText().toString();
@@ -52,6 +54,13 @@ public class register extends AppCompatActivity {
         final String email = EmailET.getText().toString();
         final String password = PasswordET.getText().toString();
         final String rePassword = RePasswordET.getText().toString();
+        String[] allFields = {username, name, nric, dob, StudentId, course, email, password, rePassword};
+
+        for (int i = 0; i < allFields.length; i++) {
+            if (allFields[i].equals("")) {
+                emptyFields++;
+            }
+        }
         int currentMode = 1; //0 is offline, 1 is online
 
         final Account registerAcc = new Account();
@@ -73,44 +82,48 @@ public class register extends AppCompatActivity {
         //Run this when resetting database.
 /*        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Member").push().setValue(registerAcc);*/
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    Account checkUser = data.getValue(Account.class);
-                    //Check if username already taken
-                    if (checkUser.getUsername().equals(username)) {
-                        Toast.makeText(getApplicationContext(), "Username Taken", Toast.LENGTH_SHORT).show();
-                    } else {
-                        //Check if password is the same
-                        if (password.equals(rePassword)) {
-                            //Check regex
-                            if (registerAcc.regex()) {
-                                reference.push().setValue(registerAcc);
 
-                                SharedPreferences.Editor editor = getSharedPreferences("UserDetails", MODE_PRIVATE).edit();
-                                editor.putString("username", username);
-                                editor.apply();
+        if (emptyFields == 0) {
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot data : dataSnapshot.getChildren()) {
+                        Account checkUser = data.getValue(Account.class);
+                        //Check if username already taken
+                        if (checkUser.getUsername().equals(username)) {
+                            Toast.makeText(getApplicationContext(), "Username Taken", Toast.LENGTH_SHORT).show();
+                        } else {
+                            //Check if password is the same
+                            if (password.equals(rePassword)) {
+                                //Check regex
+                                if (registerAcc.regex()) {
+                                    reference.push().setValue(registerAcc);
 
-                                Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
+                                    SharedPreferences.Editor editor = getSharedPreferences("UserDetails", MODE_PRIVATE).edit();
+                                    editor.putString("username", username);
+                                    editor.apply();
 
-                                Intent studentPage = new Intent(getApplicationContext(), student.class);
-                                startActivity(studentPage);
-                                break;
-                            } else if (registerAcc.regexPassword()) { //Check is only
-                                Toast.makeText(getApplicationContext(), "Please ensure that username is 6-12 characters long with at least one numerical value.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
+
+                                    Intent studentPage = new Intent(getApplicationContext(), student.class);
+                                    startActivity(studentPage);
+                                    break;
+                                } else if (registerAcc.regexPassword()) { //Check is only
+                                    Toast.makeText(getApplicationContext(), "Please ensure that username is 6-12 characters long with at least one numerical value.", Toast.LENGTH_SHORT).show();
+                                } else
+                                    Toast.makeText(getApplicationContext(), "Please ensure that password contains at least one uppercase letter, one numerical value and one symbol.", Toast.LENGTH_SHORT).show();
                             } else
-                                Toast.makeText(getApplicationContext(), "Please ensure that password contains at least one uppercase letter, one numerical value and one symbol.", Toast.LENGTH_SHORT).show();
-                        } else
-                            Toast.makeText(getApplicationContext(), "Passwords do not match", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Passwords do not match", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        } else
+            Toast.makeText(getApplicationContext(), "Please make sure all fields are filled in", Toast.LENGTH_SHORT).show();
     }
 }

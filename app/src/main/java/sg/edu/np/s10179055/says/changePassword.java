@@ -39,37 +39,40 @@ public class changePassword extends AppCompatActivity {
 
         Account a = new Account();
         a.setPassword(newPass.getText().toString());
-        if (a.regexPassword()) {
-            if (!newPass.getText().toString().equals(oldPass.getText().toString())) {
-                if (newPass.getText().toString().equals(cfmNewPass.getText().toString())) {
-                    reference.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot memberSnapshot : dataSnapshot.getChildren()) {
-                                Account a = memberSnapshot.getValue(Account.class);
-                                if (a.getUsername().equals(currentusername)) {
-                                    if (oldPass.getText().toString().equals(a.getPassword())) {
-                                        reference.child(memberSnapshot.getKey()).child("password").setValue(newPass.getText().toString());
-                                        Intent profilePage = new Intent(getApplicationContext(), student.class);
-                                        startActivity(profilePage);
-                                        break;
-                                    } else
-                                        Toast.makeText(getApplicationContext(), "Password invalid!", Toast.LENGTH_SHORT).show();
+        if (!oldPass.getText().toString().isEmpty() && !newPass.getText().toString().isEmpty() && !cfmNewPass.getText().toString().isEmpty()) {
+            if (a.regexPassword()) {
+                if (!newPass.getText().toString().equals(oldPass.getText().toString())) {
+                    if (newPass.getText().toString().equals(cfmNewPass.getText().toString())) {
+                        reference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot memberSnapshot : dataSnapshot.getChildren()) {
+                                    Account a = memberSnapshot.getValue(Account.class);
+                                    if (a.getUsername().equals(currentusername)) {
+                                        if (oldPass.getText().toString().equals(a.getPassword())) {
+                                            reference.child(memberSnapshot.getKey()).child("password").setValue(newPass.getText().toString());
+                                            Intent profilePage = new Intent(getApplicationContext(), student.class);
+                                            startActivity(profilePage);
+                                            break;
+                                        } else
+                                            Toast.makeText(getApplicationContext(), "Password invalid!", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             }
-                        }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                        }
-                    });
+                            }
+                        });
+                    } else
+                        Toast.makeText(getApplicationContext(), "Passwords do not match!", Toast.LENGTH_SHORT).show();
                 } else
-                    Toast.makeText(getApplicationContext(), "Passwords do not match!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "New password must not be the same as your old password!", Toast.LENGTH_SHORT).show();
             } else
-                Toast.makeText(getApplicationContext(), "New password must not be the same as your old password!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Please ensure that password contains at least one uppercase letter, one numerical value and one symbol.", Toast.LENGTH_SHORT).show();
         } else
-            Toast.makeText(getApplicationContext(), "Please ensure that password contains at least one uppercase letter, one numerical value and one symbol.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Please do not leave any blank fields", Toast.LENGTH_SHORT).show();
     }
 
 }
