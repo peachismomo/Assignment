@@ -46,7 +46,6 @@
                 android:layout_width="121dp"
                 android:layout_height="46dp"
                 android:text="Take Photo"
-                android:onClick="onCameraClick"
                 android:textStyle="bold"
                 android:background="@drawable/button"
                 android:backgroundTint="#FF7450"
@@ -70,6 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Name"
+            android:textStyle="bold"
             android:textColor="@color/cardview_light_background" />
 
         <TextView
@@ -88,6 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Username"
+            android:textStyle="bold"
             android:textColor="@color/cardview_light_background"/>
 
         <TextView
@@ -106,6 +107,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Student Number"
+            android:textStyle="bold"
             android:textColor="@color/cardview_light_background"/>
 
         <TextView
@@ -124,6 +126,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="NRIC"
+            android:textStyle="bold"
             android:textColor="@color/cardview_light_background" />
 
         <TextView
@@ -142,6 +145,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Course"
+            android:textStyle="bold"
             android:textColor="@color/cardview_light_background" />
 
         <TextView
@@ -160,6 +164,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Email Address"
+            android:textStyle="bold"
             android:textColor="@color/cardview_light_background"/>
 
         <TextView

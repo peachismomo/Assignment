@@ -32,6 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
+            android:padding="10dp"
             android:textColor="@color/cardview_light_background"
             android:background="@drawable/plaintext"/>
 
@@ -51,6 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
+            android:padding="10dp"
             android:textColor="@color/cardview_light_background"
             android:background="@drawable/plaintext"/>
 
@@ -70,6 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
+            android:padding="10dp"
             android:textColor="@color/cardview_light_background"
             android:background="@drawable/plaintext"/>
 
@@ -89,6 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
+            android:padding="10dp"
             android:textColor="@color/cardview_light_background"
             android:background="@drawable/plaintext"/>
 
@@ -108,6 +112,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
+            android:padding="10dp"
             android:textColor="@color/cardview_light_background"
             android:background="@drawable/plaintext"/>
 
@@ -127,6 +132,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
+            android:padding="10dp"
             android:textColor="@color/cardview_light_background"
             android:background="@drawable/plaintext"/>
 
@@ -146,6 +152,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
+            android:padding="10dp"
             android:textColor="@color/cardview_light_background"
             android:background="@drawable/plaintext"/>
 
@@ -166,6 +173,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
+            android:padding="10dp"
             android:textColor="@color/cardview_light_background"
             android:background="@drawable/plaintext"/>
 
@@ -186,6 +194,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
+            android:padding="10dp"
             android:textColor="@color/cardview_light_background"
             android:background="@drawable/plaintext"/>
 

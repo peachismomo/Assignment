@@ -186,8 +186,8 @@ public class profileFragment extends Fragment {
         if (requestCode == 2 && resultCode == RESULT_OK) {
             if (checkPermissionREAD_EXTERNAL_STORAGE(getContext())) {
                 Bitmap photo = (Bitmap) data.getExtras().get("data");
-                Uri uri = data.getData();
-                /*                Uri uri = getImageUri(getActivity(), photo);
+                img.setImageBitmap(photo);
+                /* Uri uri = getImageUri(getActivity(), photo);
                 img.setImageURI(uri);
                 upload(uri);*/
             }

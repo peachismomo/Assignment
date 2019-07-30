@@ -2,15 +2,28 @@ package sg.edu.np.s10179055.says;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.location.Location;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,10 +38,27 @@ public class Account {
     private String Name;
     private String NRIC;
     private String imgId;
-    private Location Loca;
+    private double locationLong;
+    private double locationLat;
 
     public Account() {
 
+    }
+
+    public double getLocationLong() {
+        return locationLong;
+    }
+
+    public void setLocationLong(double locationLong) {
+        this.locationLong = locationLong;
+    }
+
+    public double getLocationLat() {
+        return locationLat;
+    }
+
+    public void setLocationLat(double locationLat) {
+        this.locationLat = locationLat;
     }
 
     public String getImgId() {
@@ -128,7 +158,7 @@ public class Account {
         return regexUsername() && regexPassword();
     }
 
-    public Account getCurrentUser(Context context, final callBack call){
+    public Account getCurrentUser(Context context, final callBack call) {
         final String currentUsername = getCurrentUsername(context);
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Member");
 
@@ -151,13 +181,13 @@ public class Account {
         return new Account();
     }
 
-    public interface callBack{
+    public interface callBack {
         void onCallBack(Account account);
     }
 
-    public void setFirebaseImgId(final String imgId, Context context){
+    public void setFirebaseImgId(final String imgId, Context context) {
         final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Member");
-        final String currentUsername= getCurrentUsername(context);
+        final String currentUsername = getCurrentUsername(context);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -176,9 +206,75 @@ public class Account {
         });
     }
 
-    public String getCurrentUsername(Context context){
+    public String getCurrentUsername(Context context) {
         SharedPreferences currentUser = context.getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
         String currentUsername = currentUser.getString("username", "");
         return currentUsername;
+    }
+
+    //Push location to firebase database
+    public void fireBaseLocation(Context context, final double locationLong, final double locationLat) {
+        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Member");
+        final String currentUsername = getCurrentUsername(context);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    Account CurrentUser = data.getValue(Account.class);
+                    if (CurrentUser.getUsername().equals(currentUsername)) {
+                        reference.child(data.getKey()).child("locationLong").setValue(locationLong);
+                        reference.child(data.getKey()).child("locationLat").setValue(locationLat);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    //Set markers for all users
+    public void locationArray(final GoogleMap map, final Context context) {
+        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Member");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    Account CurrentUser = data.getValue(Account.class);
+                    if (CurrentUser.getMode() == 0) {
+                        setMarker(map, CurrentUser, context);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    //Set marker options
+    public void setMarker(final GoogleMap map, final Account currentuser, final Context context) {
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        storageRef.child(currentuser.getUsername() + "/" + currentuser.getImgId()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
+                    map.addMarker(new MarkerOptions().position(new LatLng(currentuser.getLocationLat(), currentuser.getLocationLong()))
+                            .title(currentuser.getUsername()))
+                            .setIcon(BitmapDescriptorFactory.fromBitmap(bitmap));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+            }
+        });
     }
 }
