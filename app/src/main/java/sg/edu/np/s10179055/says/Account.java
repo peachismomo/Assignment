@@ -69,7 +69,6 @@ public class Account {
         this.imgId = imgId;
     }
 
-
     public String getUsername() {
         return username;
     }
