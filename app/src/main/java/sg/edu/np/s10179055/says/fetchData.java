@@ -20,6 +20,7 @@ public class fetchData extends AsyncTask<Void,Void,Void> {
     @Override
     protected Void doInBackground(Void... voids) {
         try {
+            //Retrieve number of people at Makanplace
             URL url = new URL("https://www1.np.edu.sg/npnet/wifiatcanteen/CMXService.asmx/getChartData?Location=System Campus>Blk 51>Level 2 - Canteen>CoverageArea-B51L02");
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             InputStream inputStream = httpURLConnection.getInputStream();
@@ -30,6 +31,7 @@ public class fetchData extends AsyncTask<Void,Void,Void> {
                 mkp += line;
             }
 
+            //Retrieve number of people at 22
             URL url2 = new URL("https://www1.np.edu.sg/npnet/wifiatcanteen/CMXService.asmx/getChartData?Location=System Campus>Blk 22>Level 1>CoverageArea-B22L01");
             HttpURLConnection httpURLConnection2 = (HttpURLConnection) url2.openConnection();
             InputStream inputStream2 = httpURLConnection2.getInputStream();
@@ -40,6 +42,7 @@ public class fetchData extends AsyncTask<Void,Void,Void> {
                 twentytwo += line;
             }
 
+            //Retrieve number of people Munch
             URL url3 = new URL("https://www1.np.edu.sg/npnet/wifiatcanteen/CMXService.asmx/getChartData?Location=System Campus>Blk 73>Level 1>Munch");
             HttpURLConnection httpURLConnection3 = (HttpURLConnection) url3.openConnection();
             InputStream inputStream3 = httpURLConnection3.getInputStream();
@@ -50,6 +53,7 @@ public class fetchData extends AsyncTask<Void,Void,Void> {
                 munch += line;
             }
 
+            //Retrieve number of people at Poolside
             URL url4 = new URL("https://www1.np.edu.sg/npnet/wifiatcanteen/CMXService.asmx/getChartData?Location=System Campus>Blk 18>Level 1 - Canteen>CoverageArea-B18L01");
             HttpURLConnection httpURLConnection4 = (HttpURLConnection) url4.openConnection();
             InputStream inputStream4 = httpURLConnection4.getInputStream();
@@ -72,6 +76,7 @@ public class fetchData extends AsyncTask<Void,Void,Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
 
+        //Assign all the variables to be used by the foodPlacesFragment in the custom listView
         mkp = mkp.substring(88,mkp.indexOf(","));
         foodPlacesFragment.currentMKP = Integer.parseInt(this.mkp);
 

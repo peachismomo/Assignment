@@ -32,10 +32,13 @@ public class LocationAdapter extends ArrayAdapter<Location> {
         TextView location = v.findViewById(R.id.textView);
         TextView currentNum = v.findViewById(R.id.textView2);
 
+        //Set the location and current number of people to be displayed
         Location l = data.get(position);
         location.setText(l.getLocation());
         currentNum.setText(Integer.toString(l.getCurrent()));
-        num = l.getCurrent();
+
+        // Color-Based Classification for the number of people at each canteen
+        // Red , Yellow & Green representing Hard, Medium and Easy difficulty of finding seats
         if (l.getLocation() == "Makanplace"){
             if (l.getCurrent() >= 500){
                 currentNum.setTextColor(Color.parseColor("#ff4d4d"));

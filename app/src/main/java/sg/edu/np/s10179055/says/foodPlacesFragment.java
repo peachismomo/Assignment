@@ -34,9 +34,12 @@ public class foodPlacesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View RootView = inflater.inflate(R.layout.fragment_food_places, container, false);
+
+        //Fetch location data from the APIs
         fetchData process = new fetchData();
         process.execute();
 
+        //Initialize Listview without loading the API data in
         data = new ArrayList<>();
         for (int x = 1; x <= 4; x++) {
             if (x == 1) {
@@ -65,6 +68,7 @@ public class foodPlacesFragment extends Fragment {
         final ListView list = RootView.findViewById(R.id.listViewLocation);
         list.setAdapter(adapter);
 
+        //Code for button to update the Listview
         Button display = RootView.findViewById(R.id.button);
         display.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +101,7 @@ public class foodPlacesFragment extends Fragment {
                 final ListView list = RootView.findViewById(R.id.listViewLocation);
                 list.setAdapter(adapter);
 
+                //Set Listview on Click to navigate to google maps for navigation fucntion
                 list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
