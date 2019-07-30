@@ -11,7 +11,7 @@ public class student extends AppCompatActivity {
 
     Toolbar mToolbar;
     TabLayout mTabLayout;
-    TabItem profileTab, foodPlacesTab,reportingTab,mapsTab;
+    TabItem profileTab, foodPlacesTab, reportingTab, mapsTab;
     ViewPager mPager;
     PagerController mPagerController;
 

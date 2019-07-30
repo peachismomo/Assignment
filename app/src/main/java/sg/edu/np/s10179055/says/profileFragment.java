@@ -2,7 +2,6 @@ package sg.edu.np.s10179055.says;
 
 
 import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -27,9 +26,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -46,12 +43,12 @@ import static android.os.Environment.getExternalStoragePublicDirectory;
  * A simple {@link Fragment} subclass.
  */
 public class profileFragment extends Fragment {
-    private TextView user, name, sNo, nric, course, email, wlc;
+    final Account thisUser = new Account();
     ImageView img;
     StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-    final Account thisUser = new Account();
     String pathToFile;
     Uri photoUri;
+    private TextView user, name, sNo, nric, course, email, wlc;
 
 
     public profileFragment() {

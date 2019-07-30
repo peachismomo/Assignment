@@ -2,7 +2,6 @@ package sg.edu.np.s10179055.says;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -174,11 +173,6 @@ public class Account {
         return new Account();
     }
 
-    //overwrite this when called
-    public interface callBack {
-        void onCallBack(Account account);
-    }
-
     //Upload image to firebase as imgid
     public void setFirebaseImgId(final String imgId, Context context) {
         final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Member");
@@ -253,5 +247,10 @@ public class Account {
     public void setMarker(final GoogleMap map, final Account currentuser) {
         map.addMarker(new MarkerOptions().position(new LatLng(currentuser.getLocationLat(), currentuser.getLocationLong()))
                 .title(currentuser.getUsername()));
+    }
+
+    //overwrite this when called
+    public interface callBack {
+        void onCallBack(Account account);
     }
 }

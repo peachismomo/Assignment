@@ -19,7 +19,6 @@ public class register extends AppCompatActivity {
 
     EditText UsernameET, NameET, NRICET, DOBET, StudentIDET, CourseET, EmailET, PasswordET, RePasswordET;
     DatabaseReference reference;
-    final Account thisUser = new Account();
     int emptyFields;
 
     @Override

@@ -22,16 +22,16 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
-    private FusedLocationProviderClient fusedLocationClient;
     GoogleLocation gl = new GoogleLocation();
     int Cantid;
     LatLng selectedcant;
     String Title;
     double Lat;
     double Long;
-    private LocationCallback locationCallback;
     Account acc = new Account();
+    private GoogleMap mMap;
+    private FusedLocationProviderClient fusedLocationClient;
+    private LocationCallback locationCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +82,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //Check if the map is loaded
         if (mMap != null) {
-            gl.getLoca2(this, MapsActivity.this,mMap,acc);
+            gl.getLoca2(this, MapsActivity.this, mMap, acc);
             if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 mMap.setMyLocationEnabled(true);
             }
