@@ -24,9 +24,10 @@
 
         <ImageView
             android:id="@+id/userImg"
-            android:layout_width="225dp"
+            android:layout_width="184dp"
             android:layout_height="159dp"
             android:layout_gravity="center"
+            android:scaleType="center"
             android:src="@android:drawable/sym_def_app_icon" />
 
         <Space
@@ -108,6 +109,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="Username:"
                 android:textColor="#FFF"
+                android:textStyle="bold"
                 android:textSize="16dp" />
 
             <TextView
@@ -135,6 +137,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="Student ID:"
+                android:textStyle="bold"
                 android:textColor="#FFF"
                 android:textSize="16dp" />
 
@@ -163,6 +166,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="NRIC:"
+                android:textStyle="bold"
                 android:textColor="#FFF"
                 android:textSize="16dp" />
 
@@ -191,6 +195,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="Course:"
+                android:textStyle="bold"
                 android:textColor="#FFF"
                 android:textSize="16dp" />
 
@@ -219,6 +224,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="E-Mail:"
+                android:textStyle="bold"
                 android:textColor="#FFF"
                 android:textSize="16dp" />
 
