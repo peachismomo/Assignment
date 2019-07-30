@@ -43,6 +43,7 @@ public class GoogleLocation {
         Long = aLong;
     }
 
+    //getting the last known location of the user
     public void getLoca2(Activity a, final Context c, final GoogleMap mMap,final Account acc) {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(a);
         if (ActivityCompat.checkSelfPermission(c, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -54,8 +55,7 @@ public class GoogleLocation {
                         setLat(Loca.getLatitude());
                         setLong(Loca.getLongitude());
                         LatLng YOU = new LatLng(Loca.getLatitude(), Loca.getLongitude());
-                        acc.fireBaseLocation(c,Loca.getLongitude(),Loca.getLatitude());
-                        mMap.addMarker(new MarkerOptions().position(YOU).title("Where you are now"));
+                        acc.fireBaseLocation(c,Loca.getLongitude(),Loca.getLatitude());//updating the firebase of the user location
 
                     }
                 }
