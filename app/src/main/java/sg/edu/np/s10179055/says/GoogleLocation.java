@@ -42,7 +42,6 @@ public class GoogleLocation {
         Long = aLong;
     }
 
-
     public void getLoca2(Activity a, Context c) {//get location
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(a);
         if (ActivityCompat.checkSelfPermission(c, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {

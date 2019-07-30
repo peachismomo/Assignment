@@ -1,7 +1,6 @@
 package sg.edu.np.s10179055.says;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -32,7 +31,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     double Lat;
     double Long;
     private LocationCallback locationCallback;
-    Account acc= new Account();
+    Account acc = new Account();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +89,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.addMarker(new MarkerOptions().position(selectedcant).title(Title));
 
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(selectedcant, 12));
-                acc.fireBaseLocation(MapsActivity.this,gl.getLong(),gl.getLat());
 
             }
 

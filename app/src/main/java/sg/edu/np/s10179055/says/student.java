@@ -13,12 +13,16 @@ public class student extends AppCompatActivity {
     TabLayout mTabLayout;
     TabItem profileTab, foodPlacesTab,reportingTab,mapsTab;
     ViewPager mPager;
+    GoogleLocation location = new GoogleLocation();
+    Account account = new Account();
     PagerController mPagerController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
+        location.getLoca2(this,getApplicationContext());
+        account.fireBaseLocation(this, location.getLong()+1, location.getLat()+1);
 
         mToolbar = findViewById(R.id.toolbar);
         mTabLayout = findViewById(R.id.tabLayout);
