@@ -3,16 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/cardview_dark_background"
     android:orientation="vertical"
     tools:context=".Login">
 
-    <TextView
+    <Space
         android:layout_width="match_parent"
-        android:layout_height="135dp"
-        android:gravity="center"
-        android:text="LOGIN"
-        android:textSize="36dp"
-        android:textStyle="bold" />
+        android:layout_height="62dp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="201dp"
+        tools:srcCompat="@drawable/screen" />
 
     <TextView
         android:id="@+id/textViewDisplay"
@@ -20,17 +22,20 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="37dp"
         android:text="Username"
+        android:textColor="@color/cardview_light_background"
+        android:layout_marginLeft="19dp"
         android:textStyle="bold" />
 
     <EditText
         android:id="@+id/User_Edit"
-        android:layout_width="match_parent"
+        android:layout_width="383dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="18dp"
+        android:background="@drawable/plaintext"
         android:ems="10"
         android:inputType="textPersonName"
-        android:background="@drawable/plaintext"/>
+        android:textColor="@color/cardview_light_background" />
 
     <TextView
         android:id="@+id/textView2"
@@ -38,28 +43,46 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
         android:text="Password"
+        android:layout_marginLeft="19dp"
+        android:textColor="@color/cardview_light_background"
         android:textStyle="bold" />
 
     <EditText
         android:id="@+id/pass_edit"
-        android:layout_width="match_parent"
+        android:layout_width="383dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="13dp"
+        android:background="@drawable/plaintext"
         android:ems="10"
         android:inputType="textPassword"
-        android:background="@drawable/plaintext"
-        />
+        android:textColor="@color/cardview_light_background" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="18dp" />
 
     <Button
         android:id="@+id/btnSignin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="383dp"
+        android:layout_height="58dp"
         android:layout_gravity="center"
-        android:layout_marginTop="32dp"
+        android:background="@drawable/button"
+        android:backgroundTint="#FF7450"
         android:onClick="onLoginClick"
         android:text="Sign In"
-        android:background="@drawable/button"
         android:textColor="#FFFFFF"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="18dp" />
+
+    <TextView
+        android:id="@+id/registerTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="New user? Sign up here!"
+        android:textColor="@color/cardview_light_background" />
 </LinearLayout>

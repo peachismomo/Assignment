@@ -7,44 +7,67 @@
     android:padding="16dp"
     tools:context=".reportingFragment">
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="26dp" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="To: madladsReports@gmail.com"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/cardview_light_background" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Subject:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/cardview_light_background" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="26dp" />
 
     <EditText
         android:id="@+id/subjectTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/plaintext"
         android:inputType="textEmailSubject"
-        android:background="@drawable/plaintext"/>
+        android:textColor="@color/cardview_light_background" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="26dp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Message:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/cardview_light_background" />
 
     <EditText
         android:id="@+id/messageTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/plaintext"
         android:gravity="start|top"
         android:lines="10"
-        android:background="@drawable/plaintext"/>
+        android:textColor="@color/cardview_light_background" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="26dp" />
 
     <Button
         android:id="@+id/sendBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Send"
         android:background="@drawable/button"
-        android:textColor="#FFFFFF"/>
+        android:backgroundTint="#FF7450"
+        android:text="Send"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
 </LinearLayout>

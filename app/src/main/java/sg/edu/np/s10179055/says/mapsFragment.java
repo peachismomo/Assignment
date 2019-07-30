@@ -22,7 +22,6 @@ public class mapsFragment extends Fragment {
         // Inflate the layout for this fragment
         final View RootView = inflater.inflate(R.layout.fragment_maps, container, false);
 
-
         return RootView;
     }
 }

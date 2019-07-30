@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/cardview_dark_background"
     tools:context=".register">
 
     <LinearLayout
@@ -14,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="90dp"
             android:gravity="center"
+            android:textColor="@color/cardview_light_background"
             android:text="Register"
             android:textSize="40dp"
             />
@@ -22,6 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name"
+            android:textColor="@color/cardview_light_background"
             android:textSize="20dp" />
 
         <EditText
@@ -29,12 +32,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
+            android:textColor="@color/cardview_light_background"
             android:background="@drawable/plaintext"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Student ID"
+            android:textColor="@color/cardview_light_background"
             android:textSize="20dp" />
 
         <EditText
@@ -42,12 +51,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
+            android:textColor="@color/cardview_light_background"
             android:background="@drawable/plaintext"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="E-mail"
+            android:textColor="@color/cardview_light_background"
             android:textSize="20dp" />
 
         <EditText
@@ -55,12 +70,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
+            android:textColor="@color/cardview_light_background"
             android:background="@drawable/plaintext"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Date of Birth"
+            android:textColor="@color/cardview_light_background"
             android:textSize="20dp" />
 
         <EditText
@@ -68,12 +89,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
+            android:textColor="@color/cardview_light_background"
             android:background="@drawable/plaintext"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="NRIC"
+            android:textColor="@color/cardview_light_background"
             android:textSize="20dp" />
 
         <EditText
@@ -81,12 +108,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
+            android:textColor="@color/cardview_light_background"
             android:background="@drawable/plaintext"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Course/Year"
+            android:textColor="@color/cardview_light_background"
             android:textSize="20dp" />
 
         <EditText
@@ -94,12 +127,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
+            android:textColor="@color/cardview_light_background"
             android:background="@drawable/plaintext"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Username"
+            android:textColor="@color/cardview_light_background"
             android:textSize="20dp" />
 
         <EditText
@@ -107,12 +146,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
+            android:textColor="@color/cardview_light_background"
             android:background="@drawable/plaintext"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Password"
+            android:textColor="@color/cardview_light_background"
             android:textSize="20dp" />
 
         <EditText
@@ -121,12 +166,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
+            android:textColor="@color/cardview_light_background"
             android:background="@drawable/plaintext"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Please enter password again"
+            android:textColor="@color/cardview_light_background"
             android:textSize="20dp" />
 
         <EditText
@@ -135,7 +186,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
+            android:textColor="@color/cardview_light_background"
             android:background="@drawable/plaintext"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -144,20 +200,29 @@
             android:orientation="horizontal">
 
             <Button
-                android:layout_width="203dp"
+                android:layout_width="178dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button"
+                android:backgroundTint="#FF7450"
                 android:onClick="onCancel"
                 android:text="Cancel"
-                android:textColor="#FFFFFF" />
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"/>
+
+            <Space
+                android:minWidth="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="178dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/button"
+                android:backgroundTint="#FF7450"
                 android:onClick="onConfirm"
                 android:text="Confirm"
-                android:background="@drawable/button"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"/>
         </LinearLayout>
     </LinearLayout>
 

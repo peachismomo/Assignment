@@ -31,9 +31,11 @@
                 android:id="@+id/btnUploadImage"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
-                android:background="@drawable/button"
                 android:text="Upload"
-                android:textColor="#FFFFFF" />
+                android:textStyle="bold"
+                android:background="@drawable/button"
+                android:backgroundTint="#FF7450"
+                android:textColor="#FFFFFF"/>
 
             <Space
                 android:layout_width="match_parent"
@@ -43,9 +45,12 @@
                 android:id="@+id/btnTakePic"
                 android:layout_width="121dp"
                 android:layout_height="46dp"
-                android:background="@drawable/button"
                 android:text="Take Photo"
-                android:textColor="#FFFFFF" />
+                android:onClick="onCameraClick"
+                android:textStyle="bold"
+                android:background="@drawable/button"
+                android:backgroundTint="#FF7450"
+                android:textColor="#FFFFFF"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -64,12 +69,14 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Name" />
+            android:text="Name"
+            android:textColor="@color/cardview_light_background" />
 
         <TextView
             android:id="@+id/tvName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/cardview_light_background"/>
 
         <TextView
             android:id="@+id/textView12"
@@ -80,12 +87,14 @@
             android:id="@+id/textView13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Username" />
+            android:text="Username"
+            android:textColor="@color/cardview_light_background"/>
 
         <TextView
             android:id="@+id/tvUser"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/cardview_light_background"/>
 
         <TextView
             android:id="@+id/textView14"
@@ -96,12 +105,14 @@
             android:id="@+id/textView15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Student Number" />
+            android:text="Student Number"
+            android:textColor="@color/cardview_light_background"/>
 
         <TextView
             android:id="@+id/tvStudentID"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/cardview_light_background"/>
 
         <TextView
             android:id="@+id/textView16"
@@ -112,12 +123,14 @@
             android:id="@+id/textView17"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="NRIC" />
+            android:text="NRIC"
+            android:textColor="@color/cardview_light_background" />
 
         <TextView
             android:id="@+id/tvNRIC"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/cardview_light_background"/>
 
         <TextView
             android:id="@+id/textView18"
@@ -128,12 +141,14 @@
             android:id="@+id/textView19"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Course" />
+            android:text="Course"
+            android:textColor="@color/cardview_light_background" />
 
         <TextView
             android:id="@+id/tvCourse"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/cardview_light_background"/>
 
         <TextView
             android:id="@+id/textView20"
@@ -144,12 +159,14 @@
             android:id="@+id/textView21"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Email Address" />
+            android:text="Email Address"
+            android:textColor="@color/cardview_light_background"/>
 
         <TextView
             android:id="@+id/tvEmail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/cardview_light_background"/>
 
         <TextView
             android:id="@+id/textView22"
@@ -160,6 +177,10 @@
             android:id="@+id/btnChangePass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/button"
+            android:backgroundTint="#FF7450"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
             android:text="Change Password" />
 
     </LinearLayout>
