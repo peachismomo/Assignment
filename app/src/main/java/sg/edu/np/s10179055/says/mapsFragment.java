@@ -28,7 +28,7 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class mapsFragment extends Fragment {
 
-    Account acc= new Account();
+    Account acc = new Account();
 
     public mapsFragment() {
         // Required empty public constructor
@@ -39,17 +39,30 @@ public class mapsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View RootView = inflater.inflate(R.layout.fragment_maps, container, false);
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map2);  //use SuppoprtMapFragment for using in fragment instead of activity  MapFragment = activity   SupportMapFragment = fragment
+        final SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map2);  //use SuppoprtMapFragment for using in fragment instead of activity  MapFragment = activity   SupportMapFragment = fragment
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap mMap) {
-                acc.locationArray(mMap,mapsFragment.this.getContext());
+                acc.locationArray(mMap, mapsFragment.this.getContext());
+                try {
+                    // Customise the styling of the base map using a JSON object defined
+                    // in a raw resource file.
+                    boolean success = mMap.setMapStyle(
+                            MapStyleOptions.loadRawResourceStyle(
+                                    mapsFragment.this.getContext(), R.raw.mapstyle));
 
+                    if (!success) {
+                        Log.e("MapsActivity", "Style parsing failed.");
+                    }
+                } catch (Resources.NotFoundException e) {
+                    Log.e("MapsActivity", "Can't find style. Error: ", e);
+                }
             }
         });
         return RootView;
 
     }
+}
 /*
     public void lmao(GoogleMap map){
         final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Member");
@@ -75,10 +88,3 @@ public class mapsFragment extends Fragment {
         });
     }
 */
-    public void CallingAllLocation(){
-
-    }
-    public void settingMarkers(){
-
-    }
-}
