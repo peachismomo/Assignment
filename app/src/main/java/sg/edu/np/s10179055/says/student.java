@@ -21,7 +21,6 @@ public class student extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
-        location.getLoca2(this,getApplicationContext());
         account.fireBaseLocation(this, location.getLong()+1, location.getLat()+1);
 
         mToolbar = findViewById(R.id.toolbar);
