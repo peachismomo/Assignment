@@ -81,16 +81,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Log.e("MapsActivity", "Can't find style. Error: ", e);
         }
 
-
         if (mMap != null) {
-            gl.getLoca2(this, MapsActivity.this,mMap);
+            gl.getLoca2(this, MapsActivity.this,mMap,acc);
             if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 mMap.setMyLocationEnabled(true);
             }
             mMap.addMarker(new MarkerOptions().position(selectedcant).title(Title));
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(selectedcant, 12));
-
         }
-
     }
 }
