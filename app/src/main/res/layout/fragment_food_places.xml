@@ -31,8 +31,8 @@
         android:text="Refresh"
         android:background="@drawable/button"
         android:textStyle="bold"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="#FF7450"
+        android:textColor="#4D4845"
+        android:backgroundTint="#fc9c73"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

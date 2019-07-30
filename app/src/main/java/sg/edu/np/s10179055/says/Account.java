@@ -3,12 +3,10 @@ package sg.edu.np.s10179055.says;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.location.Location;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;

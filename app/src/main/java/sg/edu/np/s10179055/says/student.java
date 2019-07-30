@@ -29,7 +29,7 @@ public class student extends AppCompatActivity {
         mPager = findViewById(R.id.viewPager);
 
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("No Problem");
+        getSupportActionBar().setTitle("No Problemo");
 
         mPagerController = new PagerController(getSupportFragmentManager(), mTabLayout.getTabCount());
         mPager.setAdapter(mPagerController);

@@ -212,10 +212,10 @@
                 android:layout_width="178dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button"
-                android:backgroundTint="#FF7450"
+                android:backgroundTint="#fc9c73"
                 android:onClick="onCancel"
                 android:text="Cancel"
-                android:textColor="#FFFFFF"
+                android:textColor="#4D4845"
                 android:textStyle="bold"/>
 
             <Space
@@ -227,10 +227,10 @@
                 android:layout_width="178dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button"
-                android:backgroundTint="#FF7450"
+                android:backgroundTint="#fc9c73"
                 android:onClick="onConfirm"
                 android:text="Confirm"
-                android:textColor="#FFFFFF"
+                android:textColor="#4D4845"
                 android:textStyle="bold"/>
         </LinearLayout>
     </LinearLayout>

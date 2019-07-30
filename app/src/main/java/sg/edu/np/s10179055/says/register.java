@@ -38,7 +38,7 @@ public class register extends AppCompatActivity {
     }
 
     public void onCancel(View view) {
-        Intent cancel = new Intent(getBaseContext(), MainActivity.class);
+        Intent cancel = new Intent(getBaseContext(), Login.class);
         startActivity(cancel);
     }
 
@@ -66,8 +66,11 @@ public class register extends AppCompatActivity {
         registerAcc.setPassword(password);
         registerAcc.setMode(currentMode);
         registerAcc.setImgId("none");
+        registerAcc.setLocationLat(0);
+        registerAcc.setLocationLong(0);
 
         reference = FirebaseDatabase.getInstance().getReference().child("Member");
+        //Run this when resetting database.
 /*        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Member").push().setValue(registerAcc);*/
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -75,10 +78,13 @@ public class register extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     Account checkUser = data.getValue(Account.class);
+                    //Check if username already taken
                     if (checkUser.getUsername().equals(username)) {
                         Toast.makeText(getApplicationContext(), "Username Taken", Toast.LENGTH_SHORT).show();
                     } else {
+                        //Check if password is the same
                         if (password.equals(rePassword)) {
+                            //Check regex
                             if (registerAcc.regex()) {
                                 reference.push().setValue(registerAcc);
 
@@ -91,7 +97,7 @@ public class register extends AppCompatActivity {
                                 Intent studentPage = new Intent(getApplicationContext(), student.class);
                                 startActivity(studentPage);
                                 break;
-                            } else if (registerAcc.regexPassword()) {
+                            } else if (registerAcc.regexPassword()) { //Check is only
                                 Toast.makeText(getApplicationContext(), "Please ensure that username is 6-12 characters long with at least one numerical value.", Toast.LENGTH_SHORT).show();
                             } else
                                 Toast.makeText(getApplicationContext(), "Please ensure that password contains at least one uppercase letter, one numerical value and one symbol.", Toast.LENGTH_SHORT).show();
