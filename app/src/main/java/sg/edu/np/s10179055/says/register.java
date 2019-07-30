@@ -54,10 +54,10 @@ public class register extends AppCompatActivity {
         final String email = EmailET.getText().toString();
         final String password = PasswordET.getText().toString();
         final String rePassword = RePasswordET.getText().toString();
-        String[] allFields = {username, name, nric, dob, StudentId, course, email, password, rePassword};
+        EditText[] allFields = {UsernameET, NameET, NRICET, DOBET, StudentIDET, CourseET, EmailET, PasswordET, RePasswordET};
 
         for (int i = 0; i < allFields.length; i++) {
-            if (allFields[i].equals("")) {
+            if (allFields[i].getText().toString().trim().isEmpty()) {
                 emptyFields++;
             }
         }

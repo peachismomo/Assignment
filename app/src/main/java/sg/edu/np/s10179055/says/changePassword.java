@@ -39,7 +39,7 @@ public class changePassword extends AppCompatActivity {
 
         Account a = new Account();
         a.setPassword(newPass.getText().toString());
-        if (!oldPass.getText().toString().isEmpty() && !newPass.getText().toString().isEmpty() && !cfmNewPass.getText().toString().isEmpty()) {
+        if (!oldPass.getText().toString().trim().isEmpty() && !newPass.getText().toString().trim().isEmpty() && !cfmNewPass.getText().toString().trim().isEmpty()) {
             if (a.regexPassword()) {
                 if (!newPass.getText().toString().equals(oldPass.getText().toString())) {
                     if (newPass.getText().toString().equals(cfmNewPass.getText().toString())) {
