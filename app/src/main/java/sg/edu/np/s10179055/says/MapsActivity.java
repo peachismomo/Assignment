@@ -1,8 +1,12 @@
 package sg.edu.np.s10179055.says;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
@@ -79,11 +83,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         if (mMap != null) {
-            gl.getLoca2(this, MapsActivity.this, mMap);
+            gl.getLoca2(this, MapsActivity.this);
+            if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                mMap.setMyLocationEnabled(true);
+                mMap.addMarker(new MarkerOptions().position(selectedcant).title(Title));
 
-            mMap.addMarker(new MarkerOptions().position(selectedcant).title(Title));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(selectedcant, 12));
+            }
 
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(selectedcant, 12));
         }
 
     }

@@ -1,5 +1,6 @@
 package sg.edu.np.s10179055.says;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ public class Login extends AppCompatActivity {
     EditText tvUserC, tvPassC;
     TextView registerTxt;
     GoogleLocation gl=new GoogleLocation();
+    Account acc= new Account();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,11 @@ public class Login extends AppCompatActivity {
                 return true;
             }
         });
+
+        //getting location and push to firebase
+        gl.getLoca2(this,Login.this);
+        acc.fireBaseLocation(Login.this,gl.getLong(),gl.getLat());
+
     }
 
     public void onLoginClick(View v) {

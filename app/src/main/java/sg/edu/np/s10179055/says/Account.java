@@ -224,7 +224,6 @@ public class Account {
                     }
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
