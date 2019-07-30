@@ -12,7 +12,6 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -43,7 +42,8 @@ public class GoogleLocation {
         Long = aLong;
     }
 
-    public void getLoca2(Activity a, final Context c, final GoogleMap mMap,final Account acc) {
+    //getting the last known location of the user
+    public void getLoca2(Activity a, final Context c, final GoogleMap mMap, final Account acc) {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(a);
         if (ActivityCompat.checkSelfPermission(c, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             fusedLocationProviderClient.getLastLocation().addOnCompleteListener(a, new OnCompleteListener<Location>() {
@@ -54,8 +54,7 @@ public class GoogleLocation {
                         setLat(Loca.getLatitude());
                         setLong(Loca.getLongitude());
                         LatLng YOU = new LatLng(Loca.getLatitude(), Loca.getLongitude());
-                        acc.fireBaseLocation(c,Loca.getLongitude(),Loca.getLatitude());
-                        mMap.addMarker(new MarkerOptions().position(YOU).title("Where you are now"));
+                        acc.fireBaseLocation(c, Loca.getLongitude(), Loca.getLatitude());//updating the firebase of the user location
 
                     }
                 }
@@ -63,5 +62,4 @@ public class GoogleLocation {
             mMap.setMyLocationEnabled(true);
         }
     }
-
 }

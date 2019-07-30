@@ -1,6 +1,5 @@
 package sg.edu.np.s10179055.says;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,8 +22,6 @@ public class Login extends AppCompatActivity {
     DatabaseReference reference;
     EditText tvUserC, tvPassC;
     TextView registerTxt;
-    GoogleLocation gl=new GoogleLocation();
-    Account acc= new Account();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +36,11 @@ public class Login extends AppCompatActivity {
         registerTxt.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Intent register =new Intent(getBaseContext(), register.class);
+                Intent register = new Intent(getBaseContext(), register.class);
                 startActivity(register);
                 return true;
             }
         });
-
     }
 
     public void onLoginClick(View v) {
@@ -63,7 +59,7 @@ public class Login extends AppCompatActivity {
                         if (checkLogin.getPassword().equals(password)) {
                             //Set current username with sharedpreferences
                             SharedPreferences.Editor editor = getSharedPreferences("UserDetails", MODE_PRIVATE).edit();
-                            editor.putString("username",username);
+                            editor.putString("username", username);
                             editor.apply();
 
                             Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_SHORT).show();

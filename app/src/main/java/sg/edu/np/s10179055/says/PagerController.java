@@ -12,6 +12,7 @@ public class PagerController extends FragmentPagerAdapter {
         this.tabCounts = tabCounts;
     }
 
+    //tabs
     @Override
     public Fragment getItem(int i) {
         switch (i) {

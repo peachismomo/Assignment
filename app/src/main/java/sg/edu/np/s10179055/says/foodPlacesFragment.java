@@ -107,7 +107,7 @@ public class foodPlacesFragment extends Fragment {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                         Intent maps = new Intent(RootView.getContext(), MapsActivity.class);
-                        maps.putExtra("canteenid",position);
+                        maps.putExtra("canteenid", position);
                         startActivity(maps);
                     }
                 });

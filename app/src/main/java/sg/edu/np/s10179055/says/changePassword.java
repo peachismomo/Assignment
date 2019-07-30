@@ -38,6 +38,7 @@ public class changePassword extends AppCompatActivity {
         final String currentusername = currentuser.getString("username", "");
 
         Account a = new Account();
+        //Validations
         a.setPassword(newPass.getText().toString());
         if (!oldPass.getText().toString().trim().isEmpty() && !newPass.getText().toString().trim().isEmpty() && !cfmNewPass.getText().toString().trim().isEmpty()) {
             if (a.regexPassword()) {
@@ -50,6 +51,7 @@ public class changePassword extends AppCompatActivity {
                                     Account a = memberSnapshot.getValue(Account.class);
                                     if (a.getUsername().equals(currentusername)) {
                                         if (oldPass.getText().toString().equals(a.getPassword())) {
+                                            //Change/update password
                                             reference.child(memberSnapshot.getKey()).child("password").setValue(newPass.getText().toString());
                                             Intent profilePage = new Intent(getApplicationContext(), student.class);
                                             startActivity(profilePage);

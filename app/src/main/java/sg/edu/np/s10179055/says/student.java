@@ -11,10 +11,8 @@ public class student extends AppCompatActivity {
 
     Toolbar mToolbar;
     TabLayout mTabLayout;
-    TabItem profileTab, foodPlacesTab,reportingTab,mapsTab;
+    TabItem profileTab, foodPlacesTab, reportingTab, mapsTab;
     ViewPager mPager;
-    GoogleLocation location = new GoogleLocation();
-    Account account = new Account();
     PagerController mPagerController;
 
     @Override
