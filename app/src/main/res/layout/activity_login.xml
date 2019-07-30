@@ -3,18 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cardview_dark_background"
+    android:background="@drawable/bg"
     android:orientation="vertical"
     tools:context=".Login">
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="62dp" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="201dp"
-        tools:srcCompat="@drawable/screen" />
+        android:layout_height="296dp" />
 
     <TextView
         android:id="@+id/textViewDisplay"

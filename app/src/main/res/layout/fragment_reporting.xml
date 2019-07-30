@@ -66,8 +66,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button"
-        android:backgroundTint="#FF7450"
+        android:backgroundTint="#fc9c73"
         android:text="Send"
-        android:textColor="#FFFFFF"
+        android:textColor=" #4D4845"
         android:textStyle="bold" />
 </LinearLayout>
