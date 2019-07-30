@@ -101,6 +101,7 @@ public class profileFragment extends Fragment {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception exception) {
+                            Toast.makeText(getContext(), "Error loading image", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
