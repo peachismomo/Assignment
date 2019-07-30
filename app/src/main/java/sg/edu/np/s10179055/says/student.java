@@ -21,8 +21,6 @@ public class student extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
-        account.fireBaseLocation(this, location.getLong()+1, location.getLat()+1);
-
         mToolbar = findViewById(R.id.toolbar);
         mTabLayout = findViewById(R.id.tabLayout);
         profileTab = findViewById(R.id.profileTab);
