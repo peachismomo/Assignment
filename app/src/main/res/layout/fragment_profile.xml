@@ -145,6 +145,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TextView5" />
 
-    3
+
 
 </android.support.constraint.ConstraintLayout>
