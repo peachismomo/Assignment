@@ -131,22 +131,26 @@ public class Account {
         this.NRIC = NRIC;
     }
 
+    //6-12 characters, alphanumeric
     public boolean regexUsername() {
         Pattern patternUser = Pattern.compile("^[a-zA-Z0-9]*.{6,12}$");
         Matcher matcherUser = patternUser.matcher(username);
         return matcherUser.matches();
     }
 
+    //1 symbol, 1 uppsercase
     public boolean regexPassword() {
         Pattern patternPass = Pattern.compile("^(?=.*[A-Z])(?=.*[0-9])(?=.*\\W).*$");
         Matcher matcherPassword = patternPass.matcher(password);
         return matcherPassword.matches();
     }
 
+    //Check if both regex passes
     public boolean regex() {
         return regexUsername() && regexPassword();
     }
 
+    //get current user as account class
     public Account getCurrentUser(Context context, final callBack call) {
         final String currentUsername = getCurrentUsername(context);
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Member");
@@ -170,10 +174,12 @@ public class Account {
         return new Account();
     }
 
+    //overwrite this when called
     public interface callBack {
         void onCallBack(Account account);
     }
 
+    //Upload image to firebase as imgid
     public void setFirebaseImgId(final String imgId, Context context) {
         final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Member");
         final String currentUsername = getCurrentUsername(context);

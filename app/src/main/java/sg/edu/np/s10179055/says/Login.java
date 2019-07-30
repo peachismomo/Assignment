@@ -23,8 +23,6 @@ public class Login extends AppCompatActivity {
     DatabaseReference reference;
     EditText tvUserC, tvPassC;
     TextView registerTxt;
-    GoogleLocation gl=new GoogleLocation();
-    Account acc= new Account();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +42,6 @@ public class Login extends AppCompatActivity {
                 return true;
             }
         });
-
     }
 
     public void onLoginClick(View v) {

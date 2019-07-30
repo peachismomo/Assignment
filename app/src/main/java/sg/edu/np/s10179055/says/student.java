@@ -13,8 +13,6 @@ public class student extends AppCompatActivity {
     TabLayout mTabLayout;
     TabItem profileTab, foodPlacesTab,reportingTab,mapsTab;
     ViewPager mPager;
-    GoogleLocation location = new GoogleLocation();
-    Account account = new Account();
     PagerController mPagerController;
 
     @Override
