@@ -43,7 +43,7 @@ public class mapsFragment extends Fragment {
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap mMap) {
-                acc.locationArray(mMap, mapsFragment.this.getContext());
+
                 try {
                     // Customise the styling of the base map using a JSON object defined
                     // in a raw resource file.
@@ -57,34 +57,11 @@ public class mapsFragment extends Fragment {
                 } catch (Resources.NotFoundException e) {
                     Log.e("MapsActivity", "Can't find style. Error: ", e);
                 }
+                acc.locationArray(mMap, mapsFragment.this.getContext());
             }
         });
         return RootView;
 
     }
 }
-/*
-    public void lmao(GoogleMap map){
-        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Member");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    Account CurrentUser = data.getValue(Account.class);
-                    if (CurrentUser.getMode() == 0) {
-                        CurrentUser.getLocationLat();
-                        CurrentUser.getLocationLong();
-                        map.addMarker(new MarkerOptions().position(new LatLng(CurrentUser.getLocationLat(), CurrentUser.getLocationLong()))
-                                .title(CurrentUser.getUsername()))
-                                .setIcon(BitmapDescriptorFactory.fromBitmap(bitmap));
-                    }
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-*/
