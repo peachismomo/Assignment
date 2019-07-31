@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -26,12 +25,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     int Cantid;
     LatLng selectedcant;
     String Title;
-    double Lat;
-    double Long;
     Account acc = new Account();
     private GoogleMap mMap;
-    private FusedLocationProviderClient fusedLocationClient;
-    private LocationCallback locationCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +77,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //Check if the map is loaded
         if (mMap != null) {
-            gl.getLoca2(this, MapsActivity.this, mMap, acc);
+            gl.getLoca2(MapsActivity.this, this, acc);
+            gl.setCurrent(mMap, this);
             if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 mMap.setMyLocationEnabled(true);
             }

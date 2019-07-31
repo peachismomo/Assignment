@@ -10,7 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class fetchData extends AsyncTask<Void,Void,Void> {
+public class fetchData extends AsyncTask<Void, Void, Void> {
     String mkp;
     String twentytwo;
     String munch;
@@ -26,7 +26,7 @@ public class fetchData extends AsyncTask<Void,Void,Void> {
             InputStream inputStream = httpURLConnection.getInputStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             line = "";
-            while (line != null){
+            while (line != null) {
                 line = bufferedReader.readLine();
                 mkp += line;
             }
@@ -37,7 +37,7 @@ public class fetchData extends AsyncTask<Void,Void,Void> {
             InputStream inputStream2 = httpURLConnection2.getInputStream();
             BufferedReader bufferedReader2 = new BufferedReader(new InputStreamReader(inputStream2));
             line = "";
-            while (line != null){
+            while (line != null) {
                 line = bufferedReader2.readLine();
                 twentytwo += line;
             }
@@ -48,7 +48,7 @@ public class fetchData extends AsyncTask<Void,Void,Void> {
             InputStream inputStream3 = httpURLConnection3.getInputStream();
             BufferedReader bufferedReader3 = new BufferedReader(new InputStreamReader(inputStream3));
             line = "";
-            while (line != null){
+            while (line != null) {
                 line = bufferedReader3.readLine();
                 munch += line;
             }
@@ -59,7 +59,7 @@ public class fetchData extends AsyncTask<Void,Void,Void> {
             InputStream inputStream4 = httpURLConnection4.getInputStream();
             BufferedReader bufferedReader4 = new BufferedReader(new InputStreamReader(inputStream4));
             line = "";
-            while (line != null){
+            while (line != null) {
                 line = bufferedReader4.readLine();
                 poolside += line;
             }
@@ -77,16 +77,16 @@ public class fetchData extends AsyncTask<Void,Void,Void> {
         super.onPostExecute(aVoid);
 
         //Assign all the variables to be used by the foodPlacesFragment in the custom listView
-        mkp = mkp.substring(88,mkp.indexOf(","));
+        mkp = mkp.substring(88, mkp.indexOf(","));
         foodPlacesFragment.currentMKP = Integer.parseInt(this.mkp);
 
-        twentytwo = twentytwo.substring(88,twentytwo.indexOf(","));
+        twentytwo = twentytwo.substring(88, twentytwo.indexOf(","));
         foodPlacesFragment.currentTwentyTwo = Integer.parseInt(this.twentytwo);
 
-        munch = munch.substring(88,munch.indexOf(","));
+        munch = munch.substring(88, munch.indexOf(","));
         foodPlacesFragment.currentMunch = Integer.parseInt(this.munch);
 
-        poolside = poolside.substring(88,poolside.indexOf(","));
+        poolside = poolside.substring(88, poolside.indexOf(","));
         foodPlacesFragment.currentPoolside = Integer.parseInt(this.poolside);
     }
 }

@@ -1,6 +1,7 @@
 package sg.edu.np.s10179055.says;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -14,6 +15,16 @@ public class student extends AppCompatActivity {
     TabItem profileTab, foodPlacesTab, reportingTab, mapsTab;
     ViewPager mPager;
     PagerController mPagerController;
+    GoogleLocation currentLocation = new GoogleLocation();
+    Account currentAccount = new Account();
+    private Handler mHandler = new Handler();
+    private Runnable updateLocation = new Runnable() {
+        @Override
+        public void run() {
+            currentLocation.getLoca2(student.this, getBaseContext(), currentAccount);
+            mHandler.postDelayed(this, 10000);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +43,8 @@ public class student extends AppCompatActivity {
 
         mPagerController = new PagerController(getSupportFragmentManager(), mTabLayout.getTabCount());
         mPager.setAdapter(mPagerController);
+
+        updateLocation.run();
 
         //Open tab via click.
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

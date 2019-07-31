@@ -3,9 +3,7 @@ package sg.edu.np.s10179055.says;
 
 import android.Manifest;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -152,14 +150,13 @@ public class profileFragment extends Fragment {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot memberSnapshot : dataSnapshot.getChildren()) {
                             Account current = memberSnapshot.getValue(Account.class);
-                            if(current.getUsername().equals(currentusername)){
-                                if(current.getMode()==1){
+                            if (current.getUsername().equals(currentusername)) {
+                                if (current.getMode() == 1) {
                                     reference.child(memberSnapshot.getKey()).child("mode").setValue(0);
-                                    Toast.makeText(getContext(),"Mode set to offline.", Toast.LENGTH_SHORT).show();
-                                }
-                                else{
+                                    Toast.makeText(getContext(), "Mode set to offline.", Toast.LENGTH_SHORT).show();
+                                } else {
                                     reference.child(memberSnapshot.getKey()).child("mode").setValue(1);
-                                    Toast.makeText(getContext(),"Mode set to online.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "Mode set to online.", Toast.LENGTH_SHORT).show();
                                 }
                                 break;
                             }
