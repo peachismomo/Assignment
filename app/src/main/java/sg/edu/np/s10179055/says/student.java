@@ -1,12 +1,22 @@
 package sg.edu.np.s10179055.says;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class student extends AppCompatActivity {
 
@@ -15,16 +25,7 @@ public class student extends AppCompatActivity {
     TabItem profileTab, foodPlacesTab, reportingTab, mapsTab;
     ViewPager mPager;
     PagerController mPagerController;
-    GoogleLocation currentLocation = new GoogleLocation();
-    /*Account currentAccount = new Account();
-    private Handler mHandler = new Handler();
-    private Runnable updateLocation = new Runnable() {
-        @Override
-        public void run() {
-            currentLocation.getLoca2(student.this, getBaseContext(), currentAccount);
-            mHandler.postDelayed(this, 10000);
-        }
-    };*/
+    DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Member");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,27 @@ public class student extends AppCompatActivity {
         mPagerController = new PagerController(getSupportFragmentManager(), mTabLayout.getTabCount());
         mPager.setAdapter(mPagerController);
 
-        /*updateLocation.run();*/
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String allUsersKey = "";
+                int numberOfUsers = 0;
+                for(DataSnapshot data: dataSnapshot.getChildren()){
+                    allUsersKey = data.getKey()+",";
+                    numberOfUsers++;
+                }
+                SharedPreferences.Editor editor = getSharedPreferences("UserDetails", MODE_PRIVATE).edit();
+                editor.putString("AllUsers", allUsersKey);
+
+                editor.putInt("NumberOfUsers",numberOfUsers);
+                editor.apply();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         //Open tab via click.
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

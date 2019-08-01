@@ -205,7 +205,7 @@ public class Account {
     public void fireBaseLocation(Context context, final double locationLong, final double locationLat) {
         final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Member");
         final String currentUsername = getCurrentUsername(context);
-        reference.addValueEventListener(new ValueEventListener() {
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
@@ -217,7 +217,6 @@ public class Account {
                     }
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -229,7 +228,7 @@ public class Account {
     public void locationArray(final GoogleMap map) {
         map.clear();
         final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Member");
-        reference.addValueEventListener(new ValueEventListener() {
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
@@ -250,11 +249,32 @@ public class Account {
     //Set marker options
     public void setMarker(final GoogleMap map, final Account currentuser) {
         map.addMarker(new MarkerOptions().position(new LatLng(currentuser.getLocationLat(), currentuser.getLocationLong()))
-                .title(currentuser.getUsername()));
+                .title(currentuser.getName()));
     }
 
     //overwrite this when called
     public interface callBack {
         void onCallBack(Account account);
+    }
+
+    public void changekey(Context context){
+        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Member");
+        final String currentUsername = getCurrentUsername(context);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    Account CurrentUser = data.getValue(Account.class);
+                    if (CurrentUser.getUsername().equals(currentUsername)) {
+                        reference.setValue(currentUsername);
+                    }
+                    break;
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }
