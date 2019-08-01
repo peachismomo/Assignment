@@ -41,7 +41,7 @@ public class GoogleLocation {
     }
 
     //getting the last known location of the user
-    public void getLoca2(Activity a, final Context c, final Account acc) {
+    public void getLoca2(Activity a, final Context c, final Account acc, GoogleMap mMap) {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(a);
         if (ActivityCompat.checkSelfPermission(c, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             fusedLocationProviderClient.getLastLocation().addOnCompleteListener(a, new OnCompleteListener<Location>() {
@@ -58,7 +58,7 @@ public class GoogleLocation {
                     }
                 }
             });
-            //mMap.setMyLocationEnabled(true);
+            mMap.setMyLocationEnabled(true);
         }
     }
 

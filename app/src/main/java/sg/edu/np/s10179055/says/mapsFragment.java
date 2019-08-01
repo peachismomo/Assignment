@@ -24,6 +24,7 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 public class mapsFragment extends Fragment {
 
     Account acc = new Account();
+    GoogleLocation currentLocation = new GoogleLocation();
     private Handler mHandler = new Handler();
     private Runnable updateMarker = new Runnable() {
         @Override
@@ -32,6 +33,9 @@ public class mapsFragment extends Fragment {
             mapFragment.getMapAsync(new OnMapReadyCallback() {
                 @Override
                 public void onMapReady(final GoogleMap mMap) {
+                    Account currentAccount = new Account();
+                    currentLocation.getLoca2(getActivity(), getContext(), currentAccount, mMap);
+                    mHandler.postDelayed(updateMarker, 10000);
                     //Design
                     try {
                         boolean success = mMap.setMapStyle(
@@ -46,12 +50,8 @@ public class mapsFragment extends Fragment {
                     }
                     //setting markers of user
                     acc.locationArray(mMap);
-                    if (ActivityCompat.checkSelfPermission(mapsFragment.this.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                        mMap.setMyLocationEnabled(true);
-                    }
                 }
             });
-            mHandler.postDelayed(this, 10000);
         }
     };
 

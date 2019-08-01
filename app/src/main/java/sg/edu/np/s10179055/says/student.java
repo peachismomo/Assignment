@@ -16,7 +16,7 @@ public class student extends AppCompatActivity {
     ViewPager mPager;
     PagerController mPagerController;
     GoogleLocation currentLocation = new GoogleLocation();
-    Account currentAccount = new Account();
+    /*Account currentAccount = new Account();
     private Handler mHandler = new Handler();
     private Runnable updateLocation = new Runnable() {
         @Override
@@ -24,7 +24,7 @@ public class student extends AppCompatActivity {
             currentLocation.getLoca2(student.this, getBaseContext(), currentAccount);
             mHandler.postDelayed(this, 10000);
         }
-    };
+    };*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class student extends AppCompatActivity {
         mPagerController = new PagerController(getSupportFragmentManager(), mTabLayout.getTabCount());
         mPager.setAdapter(mPagerController);
 
-        updateLocation.run();
+        /*updateLocation.run();*/
 
         //Open tab via click.
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

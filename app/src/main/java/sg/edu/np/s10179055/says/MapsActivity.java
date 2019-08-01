@@ -77,11 +77,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //Check if the map is loaded
         if (mMap != null) {
-            gl.getLoca2(MapsActivity.this, this, acc);
+            gl.getLoca2(MapsActivity.this, this, acc, mMap);
             gl.setCurrent(mMap, this);
-            if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                mMap.setMyLocationEnabled(true);
-            }
             //adding markers of canteen selected
             mMap.addMarker(new MarkerOptions().position(selectedcant).title(Title));
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(selectedcant, 12));

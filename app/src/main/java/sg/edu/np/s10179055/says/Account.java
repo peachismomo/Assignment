@@ -213,6 +213,7 @@ public class Account {
                     if (CurrentUser.getUsername().equals(currentUsername)) {
                         reference.child(data.getKey()).child("locationLong").setValue(locationLong);
                         reference.child(data.getKey()).child("locationLat").setValue(locationLat);
+                        break;
                     }
                 }
             }
@@ -226,6 +227,7 @@ public class Account {
 
     //Set markers for all users
     public void locationArray(final GoogleMap map) {
+        map.clear();
         final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Member");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
