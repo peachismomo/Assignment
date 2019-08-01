@@ -97,7 +97,6 @@ public class register extends AppCompatActivity {
                                 //Check regex
                                 if (registerAcc.regex()) {
                                     reference.push().setValue(registerAcc);
-                                    registerAcc.changekey(getBaseContext());
                                     SharedPreferences.Editor editor = getSharedPreferences("UserDetails", MODE_PRIVATE).edit();
                                     editor.putString("username", username);
                                     editor.apply();

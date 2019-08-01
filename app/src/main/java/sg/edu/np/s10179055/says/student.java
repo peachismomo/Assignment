@@ -1,16 +1,13 @@
 package sg.edu.np.s10179055.says;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -50,14 +47,14 @@ public class student extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String allUsersKey = "";
                 int numberOfUsers = 0;
-                for(DataSnapshot data: dataSnapshot.getChildren()){
-                    allUsersKey = data.getKey()+",";
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    allUsersKey = data.getKey() + ",";
                     numberOfUsers++;
                 }
                 SharedPreferences.Editor editor = getSharedPreferences("UserDetails", MODE_PRIVATE).edit();
                 editor.putString("AllUsers", allUsersKey);
 
-                editor.putInt("NumberOfUsers",numberOfUsers);
+                editor.putInt("NumberOfUsers", numberOfUsers);
                 editor.apply();
             }
 

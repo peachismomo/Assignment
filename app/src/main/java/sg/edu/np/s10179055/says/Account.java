@@ -217,6 +217,7 @@ public class Account {
                     }
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -255,26 +256,5 @@ public class Account {
     //overwrite this when called
     public interface callBack {
         void onCallBack(Account account);
-    }
-
-    public void changekey(Context context){
-        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Member");
-        final String currentUsername = getCurrentUsername(context);
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    Account CurrentUser = data.getValue(Account.class);
-                    if (CurrentUser.getUsername().equals(currentUsername)) {
-                        reference.setValue(currentUsername);
-                    }
-                    break;
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
 }

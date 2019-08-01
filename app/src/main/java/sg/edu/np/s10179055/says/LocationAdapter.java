@@ -13,7 +13,6 @@ import java.util.ArrayList;
 public class LocationAdapter extends ArrayAdapter<Location> {
     Context c;
     int layout;
-    int num;
     ArrayList<Location> data;
 
     public LocationAdapter(Context c, int layout, ArrayList<Location> data) {
