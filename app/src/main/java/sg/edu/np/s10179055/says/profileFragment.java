@@ -41,6 +41,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 import static android.app.Activity.RESULT_OK;
 import static android.os.Environment.getExternalStoragePublicDirectory;
 
@@ -50,7 +52,7 @@ import static android.os.Environment.getExternalStoragePublicDirectory;
  */
 public class profileFragment extends Fragment {
     final Account thisUser = new Account();
-    ImageView img;
+    CircleImageView img;
     StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     String pathToFile;
     Uri photoUri;
