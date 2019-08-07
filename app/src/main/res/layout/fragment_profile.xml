@@ -13,9 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#fc9c73"
+        android:gravity="center"
         android:orientation="vertical"
         android:weightSum="0"
-        android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -28,8 +28,8 @@
             android:layout_width="185dp"
             android:layout_height="160dp"
             android:src="@drawable/ic_launcher_foreground"
-            app:civ_border_width="2dp"
-            app:civ_border_color="#fc9c73"/>
+            app:civ_border_color="#fc9c73"
+            app:civ_border_width="2dp" />
 
         <Space
             android:layout_width="match_parent"

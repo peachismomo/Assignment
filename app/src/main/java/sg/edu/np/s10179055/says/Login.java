@@ -27,43 +27,43 @@ public class Login extends AppCompatActivity {
     Button loginBtn;
     SharedPreferences sharedPreferences;
     CheckBox checkBox;
+    String rememberPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
 
-        reference = FirebaseDatabase.getInstance().getReference("Member");
-        tvUserC = findViewById(R.id.User_Edit);
-        tvPassC = findViewById(R.id.pass_edit);
-        registerTxt = findViewById(R.id.registerTxt);
-        loginBtn = findViewById(R.id.btnSignin);
-        checkBox = findViewById(R.id.rememberChkBox);
+        initalise();
 
         sharedPreferences = getSharedPreferences("UserDetails", MODE_PRIVATE);
         String rememberUsername = sharedPreferences.getString("username", "");
-        String rememberPassword = sharedPreferences.getString("password", "");
+        rememberPassword = sharedPreferences.getString("password", "");
 
         if (!rememberUsername.equals("") && !rememberPassword.equals("")) {
             login(rememberUsername, rememberPassword);
+        } else {
+            setContentView(R.layout.activity_login);
+
+            initalise();
+
+            //open register activity
+            registerTxt.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    Intent register = new Intent(getBaseContext(), register.class);
+                    startActivity(register);
+                    return true;
+                }
+            });
+
+            loginBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    login(tvUserC.getText().toString(), tvPassC.getText().toString());
+                }
+            });
+
         }
-
-        //open register activity
-        registerTxt.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Intent register = new Intent(getBaseContext(), register.class);
-                startActivity(register);
-                return true;
-            }
-        });
-
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                login(tvUserC.getText().toString(), tvPassC.getText().toString());
-            }
-        });
     }
 
     public void login(final String username, final String password) {
@@ -80,9 +80,12 @@ public class Login extends AppCompatActivity {
                             SharedPreferences.Editor editor = getSharedPreferences("UserDetails", MODE_PRIVATE).edit();
                             editor.putString("username", username);
 
-                            if (checkBox.isChecked()) {
-                                editor.putString("password", password);
+                            if (rememberPassword.equals("")) {
+                                if (checkBox.isChecked()) {
+                                    editor.putString("password", password);
+                                }
                             }
+
                             editor.apply();
                             Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_SHORT).show();
                             //Go to app
@@ -101,5 +104,14 @@ public class Login extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void initalise() {
+        reference = FirebaseDatabase.getInstance().getReference("Member");
+        tvUserC = findViewById(R.id.User_Edit);
+        tvPassC = findViewById(R.id.pass_edit);
+        registerTxt = findViewById(R.id.registerTxt);
+        loginBtn = findViewById(R.id.btnSignin);
+        checkBox = findViewById(R.id.rememberChkBox);
     }
 }
