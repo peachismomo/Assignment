@@ -2,6 +2,7 @@ package sg.edu.np.s10179055.says;
 
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -60,12 +61,15 @@ public class profileFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View RootView = inflater.inflate(R.layout.fragment_profile, container, false);
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Please Wait");
+        progressDialog.show();
 
         if (Build.VERSION.SDK_INT >= 23) {
             requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
@@ -99,6 +103,7 @@ public class profileFragment extends Fragment {
                         public void onSuccess(Uri uri) {
                             //use glide to load image into imgview
                             Glide.with(getActivity().getApplicationContext()).load(uri).into(img);
+                            progressDialog.dismiss();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override

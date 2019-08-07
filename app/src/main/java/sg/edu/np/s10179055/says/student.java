@@ -1,19 +1,15 @@
 package sg.edu.np.s10179055.says;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import android.view.View;
+import android.widget.Button;
 
 public class student extends AppCompatActivity {
 
@@ -22,7 +18,8 @@ public class student extends AppCompatActivity {
     TabItem profileTab, foodPlacesTab, reportingTab, mapsTab;
     ViewPager mPager;
     PagerController mPagerController;
-    DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Member");
+    Button logoutBtn;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +32,7 @@ public class student extends AppCompatActivity {
         reportingTab = findViewById(R.id.reportTab);
         mapsTab = findViewById(R.id.userMap);
         mPager = findViewById(R.id.viewPager);
+        logoutBtn = findViewById(R.id.logoutBtn);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("No Problemo");
@@ -42,25 +40,16 @@ public class student extends AppCompatActivity {
         mPagerController = new PagerController(getSupportFragmentManager(), mTabLayout.getTabCount());
         mPager.setAdapter(mPagerController);
 
-        reference.addValueEventListener(new ValueEventListener() {
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String allUsersKey = "";
-                int numberOfUsers = 0;
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    allUsersKey = data.getKey() + ",";
-                    numberOfUsers++;
-                }
-                SharedPreferences.Editor editor = getSharedPreferences("UserDetails", MODE_PRIVATE).edit();
-                editor.putString("AllUsers", allUsersKey);
-
-                editor.putInt("NumberOfUsers", numberOfUsers);
+            public void onClick(View v) {
+                editor = getSharedPreferences("UserDetails", MODE_PRIVATE).edit();
+                editor.putString("username", "");
+                editor.putString("password", "");
                 editor.apply();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Intent loginPage = new Intent(getBaseContext(), Login.class);
+                startActivity(loginPage);
             }
         });
 

@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,15 +24,29 @@ public class Login extends AppCompatActivity {
     DatabaseReference reference;
     EditText tvUserC, tvPassC;
     TextView registerTxt;
+    Button loginBtn;
+    SharedPreferences sharedPreferences;
+    CheckBox checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         reference = FirebaseDatabase.getInstance().getReference("Member");
         tvUserC = findViewById(R.id.User_Edit);
         tvPassC = findViewById(R.id.pass_edit);
         registerTxt = findViewById(R.id.registerTxt);
+        loginBtn = findViewById(R.id.btnSignin);
+        checkBox = findViewById(R.id.rememberChkBox);
+
+        sharedPreferences = getSharedPreferences("UserDetails", MODE_PRIVATE);
+        String rememberUsername = sharedPreferences.getString("username", "");
+        String rememberPassword = sharedPreferences.getString("password", "");
+
+        if (!rememberUsername.equals("") && !rememberPassword.equals("")) {
+            login(rememberUsername, rememberPassword);
+        }
 
         //open register activity
         registerTxt.setOnTouchListener(new View.OnTouchListener() {
@@ -41,10 +57,13 @@ public class Login extends AppCompatActivity {
                 return true;
             }
         });
-    }
 
-    public void onLoginClick(View v) {
-        login(tvUserC.getText().toString(), tvPassC.getText().toString());
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                login(tvUserC.getText().toString(), tvPassC.getText().toString());
+            }
+        });
     }
 
     public void login(final String username, final String password) {
@@ -60,8 +79,11 @@ public class Login extends AppCompatActivity {
                             //Set current username with sharedpreferences
                             SharedPreferences.Editor editor = getSharedPreferences("UserDetails", MODE_PRIVATE).edit();
                             editor.putString("username", username);
-                            editor.apply();
 
+                            if (checkBox.isChecked()) {
+                                editor.putString("password", password);
+                            }
+                            editor.apply();
                             Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_SHORT).show();
                             //Go to app
                             Intent studentPage = new Intent(getApplicationContext(), student.class);

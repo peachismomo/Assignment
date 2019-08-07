@@ -12,10 +12,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FF7450"
-        app:titleTextColor="@color/cardview_light_background"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></android.support.v7.widget.Toolbar>
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/cardview_light_background">
+
+        <Button
+            android:id="@+id/logoutBtn"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_gravity="right"
+            android:background="@drawable/button"
+            android:backgroundTint="#fc9c73"
+            android:text="Log Out"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:layout_marginRight="20dp"/>
+
+    </android.support.v7.widget.Toolbar>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
