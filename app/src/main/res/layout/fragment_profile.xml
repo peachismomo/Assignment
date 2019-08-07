@@ -243,15 +243,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnChangePass"
                 android:layout_width="180dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/button"
                 android:layout_marginRight="8dp"
+                android:background="@drawable/button"
                 android:backgroundTint="#fc9c73"
                 android:text="Change Password"
                 android:textColor="@color/colorAccent"
@@ -267,7 +267,6 @@
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold" />
         </LinearLayout>
-
 
 
     </LinearLayout>

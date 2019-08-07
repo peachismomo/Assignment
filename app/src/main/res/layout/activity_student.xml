@@ -23,12 +23,12 @@
             android:layout_width="80dp"
             android:layout_height="40dp"
             android:layout_gravity="right"
+            android:layout_marginRight="20dp"
             android:background="@drawable/button"
             android:backgroundTint="#fc9c73"
             android:text="Log Out"
             android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:layout_marginRight="20dp"/>
+            android:textStyle="bold" />
 
     </android.support.v7.widget.Toolbar>
 
@@ -54,10 +54,10 @@
             android:text="Food Places" />
 
         <android.support.design.widget.TabItem
+            android:id="@+id/userMap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/userMap"
-            android:text="Maps"/>
+            android:text="Maps" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/reportTab"

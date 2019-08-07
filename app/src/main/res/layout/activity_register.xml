@@ -15,10 +15,9 @@
             android:layout_width="match_parent"
             android:layout_height="90dp"
             android:gravity="center"
-            android:textColor="@color/cardview_light_background"
             android:text="Register"
-            android:textSize="40dp"
-            />
+            android:textColor="@color/cardview_light_background"
+            android:textSize="40dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -31,10 +30,10 @@
             android:id="@+id/nameTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:background="@drawable/plaintext"
             android:padding="10dp"
             android:textColor="@color/cardview_light_background"
-            android:background="@drawable/plaintext"/>
+            android:textSize="20dp" />
 
         <Space
             android:layout_width="match_parent"
@@ -51,10 +50,10 @@
             android:id="@+id/studentIdTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:background="@drawable/plaintext"
             android:padding="10dp"
             android:textColor="@color/cardview_light_background"
-            android:background="@drawable/plaintext"/>
+            android:textSize="20dp" />
 
         <Space
             android:layout_width="match_parent"
@@ -71,10 +70,10 @@
             android:id="@+id/emailTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:background="@drawable/plaintext"
             android:padding="10dp"
             android:textColor="@color/cardview_light_background"
-            android:background="@drawable/plaintext"/>
+            android:textSize="20dp" />
 
         <Space
             android:layout_width="match_parent"
@@ -91,10 +90,10 @@
             android:id="@+id/dateOfBirthTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:background="@drawable/plaintext"
             android:padding="10dp"
             android:textColor="@color/cardview_light_background"
-            android:background="@drawable/plaintext"/>
+            android:textSize="20dp" />
 
         <Space
             android:layout_width="match_parent"
@@ -111,10 +110,10 @@
             android:id="@+id/nric"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:background="@drawable/plaintext"
             android:padding="10dp"
             android:textColor="@color/cardview_light_background"
-            android:background="@drawable/plaintext"/>
+            android:textSize="20dp" />
 
         <Space
             android:layout_width="match_parent"
@@ -131,10 +130,10 @@
             android:id="@+id/courseTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:background="@drawable/plaintext"
             android:padding="10dp"
             android:textColor="@color/cardview_light_background"
-            android:background="@drawable/plaintext"/>
+            android:textSize="20dp" />
 
         <Space
             android:layout_width="match_parent"
@@ -151,10 +150,10 @@
             android:id="@+id/usernameTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:background="@drawable/plaintext"
             android:padding="10dp"
             android:textColor="@color/cardview_light_background"
-            android:background="@drawable/plaintext"/>
+            android:textSize="20dp" />
 
         <Space
             android:layout_width="match_parent"
@@ -169,13 +168,13 @@
 
         <EditText
             android:id="@+id/passwordTxt"
-            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:background="@drawable/plaintext"
+            android:inputType="textPassword"
             android:padding="10dp"
             android:textColor="@color/cardview_light_background"
-            android:background="@drawable/plaintext"/>
+            android:textSize="20dp" />
 
         <Space
             android:layout_width="match_parent"
@@ -190,13 +189,13 @@
 
         <EditText
             android:id="@+id/reenterPasswordTxt"
-            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:background="@drawable/plaintext"
+            android:inputType="textPassword"
             android:padding="10dp"
             android:textColor="@color/cardview_light_background"
-            android:background="@drawable/plaintext"/>
+            android:textSize="20dp" />
 
         <Space
             android:layout_width="match_parent"
@@ -216,12 +215,12 @@
                 android:onClick="onCancel"
                 android:text="Cancel"
                 android:textColor="#4D4845"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <Space
-                android:minWidth="10dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:minWidth="10dp" />
 
             <Button
                 android:layout_width="178dp"
@@ -231,7 +230,7 @@
                 android:onClick="onConfirm"
                 android:text="Confirm"
                 android:textColor="#4D4845"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 
